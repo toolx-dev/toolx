@@ -1,0 +1,8 @@
+# Node modules
+node_modules/
+
+# Development tools
+.nyc_output/
+*.log
+*.tgz
+scripts/

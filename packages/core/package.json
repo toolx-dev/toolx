@@ -1,0 +1,31 @@
+{
+    "name": "@toolx/core",
+    "version": "1.0.0",
+    "description": "ToolX - a versatile toolkit designed for efficient file manipulation and processing.",
+    "main": "server.js",
+    "module": "server.js",
+    "source": "server.js",
+    "publishConfig": {
+        "access": "public",
+        "main": "server.js"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "dependencies": {
+        "fast-glob": "^3.2.12"
+    },
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/williammanco/toolx.git"
+    },
+    "author": "William Manco <wmanco88@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/williammanco/toolx/issues"
+    },
+    "homepage": "https://github.com/williammanco/toolx#readme"
+}

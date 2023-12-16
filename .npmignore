@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+
+# Testing and coverage
+coverage/
+*.test.js
+*.spec.js
+jest.config.js
+
+# Development tools
+.nyc_output/
+*.log
+*.tgz
+scripts/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/

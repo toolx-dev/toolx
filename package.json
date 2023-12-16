@@ -1,0 +1,26 @@
+{
+    "name": "toolx",
+    "version": "1.0.0",
+    "author": "William Manco <wmanco88@gmail.com>",
+    "type": "module",
+    "engines": {
+        "npm": ">=8.3.1",
+        "node": ">=16.14.0"
+    },
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "workspaces": [
+        "packages/core",
+        "packages/tool-json",
+        "packages/tool-svg",
+        "packages/tool-sharp"
+    ],
+    "devDependencies": {
+        "@types/node": "^18.11.9",
+        "eslint": "^8.30.0",
+        "mustargs": "^1.0.3",
+        "vitest": "^1.0.4"
+    }
+}

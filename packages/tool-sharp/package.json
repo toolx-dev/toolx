@@ -1,0 +1,31 @@
+{
+    "name": "@toolx/tool-sharp",
+    "version": "1.0.0",
+    "description": "ToolSharp",
+    "main": "ToolSharp.js",
+    "module": "ToolSharp.js",
+    "source": "ToolSharp.js",
+    "publishConfig": {
+        "access": "public",
+        "main": "ToolSharp.js"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "dependencies": {
+        "sharp": "^0.32.0"
+    },
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/williammanco/toolx.git"
+    },
+    "author": "William Manco",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/williammanco/toolx/issues"
+    },
+    "homepage": "https://github.com/williammanco/toolx#readme"
+}

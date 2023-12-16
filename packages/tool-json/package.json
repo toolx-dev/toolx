@@ -1,0 +1,28 @@
+{
+    "name": "@toolx/tool-json",
+    "version": "1.0.0",
+    "description": "",
+    "main": "ToolJSON.js",
+    "source": "ToolJSON.js",
+    "publishConfig": {
+        "access": "public",
+        "main": "ToolJSON.js"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "dependencies": {},
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/williammanco/toolx.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/williammanco/toolx/issues"
+    },
+    "homepage": "https://github.com/williammanco/toolx#readme"
+}
