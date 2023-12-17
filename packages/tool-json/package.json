@@ -1,6 +1,6 @@
 {
     "name": "@toolx/tool-json",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "",
     "main": "ToolJSON.js",
     "source": "ToolJSON.js",
@@ -10,7 +10,9 @@
     },
     "type": "module",
     "sideEffects": false,
-    "dependencies": {},
+    "dependencies": {
+        "@toolx/core": "^1.0.1"
+    },
     "scripts": {
         "test": "vitest run",
         "test:watch": "vitest"
