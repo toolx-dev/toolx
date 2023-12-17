@@ -118,6 +118,9 @@ class Tool extends Base {
             ...options,
         }
 
+        pathIn = pathIn || this._pathIn;
+        pathOut = pathOut || this._pathOut;
+
         // Convert input path(s) to a flat array
         const _pathIn = Array(pathIn).flat();
 

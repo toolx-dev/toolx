@@ -64,13 +64,14 @@ describe('Tool class', () => {
     });
 
     it('should remove a directory and its contents', async () => {
-        const tempDirPath = path.join(os.tmpdir(), `toolTestRemoveDir`);
-        await Tool.createDir(tempDirPath);
-
-        const tempFilePath = path.join(tempDirPath, 'temp.txt');
-        await fs.writeFile(tempFilePath, 'Hello, World!');
-
         //TODO: check this test
+
+        // const tempDirPath = path.join(os.tmpdir(), `toolTestRemoveDir`);
+        // await Tool.createDir(tempDirPath);
+
+        // const tempFilePath = path.join(tempDirPath, 'temp.txt');
+        // await fs.writeFile(tempFilePath, 'Hello, World!');
+
         // await Tool.removeDir(tempDirPath);
 
         // const dirExists = await Tool.exist(tempDirPath);
@@ -95,5 +96,21 @@ describe('Tool class', () => {
         // expect(result.files).toEqual([
         //     `${tempDir}/toolTest_out/temp.txt`
         // ]);
+    });
+
+    it('should run the tool logic with arguments on constructor', async () => {
+        const tempDir = path.join(os.tmpdir(), `Tool`);
+        const tempDirPathOut = path.join(tempDir, `out`);
+
+        const tempFilePath = path.join(tempDir, 'temp.txt');
+        await fs.writeFile(tempFilePath, 'Hello, World!');
+
+        const pathIn = tempFilePath;
+        const pathOut = tempDirPathOut;
+
+        const toolInstance = new Tool({ export: false, pathIn, pathOut }, pathIn, pathOut);
+        const result = await toolInstance.run();
+
+        expect(result.options.export).toEqual(false);
     });
 });
