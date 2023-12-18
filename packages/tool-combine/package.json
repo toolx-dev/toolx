@@ -1,7 +1,6 @@
-
 {
     "name": "@toolx/tool-combine",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "",
     "main": "ToolCombine.js",
     "source": "ToolCombine.js",
