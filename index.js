@@ -12,13 +12,9 @@ const options = args.options || args.opts || args.s;
 const tool = args.tool || args.t;
 const pipeline = args.pipeline || args.p;
 const help = args.help || args.h;
-const assets = args.assets || args.a;
 
-const basePathIn = assets ? path.join(process.cwd(), 'HTML', 'assets', 'resources') : '';
-const basePathOut = assets ? path.join(process.cwd(), 'HTML', 'assets') : '';
-
-pathIn = path.join(basePathIn, pathIn);
-pathOut = path.join(basePathOut, pathOut);
+pathIn = pathIn;
+pathOut = pathOut || path.dirname(pathIn);
 
 if (tool) {
     import(`./packages/tool-${tool}/Tool${toCamelCase(tool, true)}.js`).then((_tool) => {
@@ -27,7 +23,7 @@ if (tool) {
 } else if (pipeline) {
     import('@toolx/core').then(({ Pipeline }) => {
         const pipelineFn = new Pipeline(options, pathIn, pathOut);
-        import(`./packages/pipeline-${pipeline}/${toCamelCase(pipeline, true)}.js`).then((listTools) => {
+        import(pipeline).then((listTools) => {
             pipelineFn.compose(...listTools.default().filter(e => e))()
         });
     })
