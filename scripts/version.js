@@ -29,8 +29,6 @@ async function bumpVersion(packageName, type) {
     const packageDir = path.join(process.cwd(), 'packages', packageName);
     const packageJsonPath = path.join(packageDir, 'package.json');
 
-    await execCommand(`npm version ${type}`);
-
     const prevPackageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf-8'));
 
     await execCommand(`cd ${packageDir} && npm version ${type}`);
