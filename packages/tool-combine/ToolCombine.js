@@ -1,0 +1,81 @@
+
+import Tool from '@toolx/core/Tool.server.js';
+import sharp from 'sharp';
+import path from 'node:path';
+
+class ToolCombine extends Tool {
+    options = {
+        exts: ['jpg', 'jpeg', 'png', 'webp', 'tiff', 'gif', 'avif', 'heif'],
+    }
+
+    fileCollector = []
+
+    groups = []
+
+    async combineImages(image1, image2, image3) {
+        // Use the metadata from the first image to define width, height, and channels
+        const { width, height } = await sharp(image1).metadata();
+
+        // Helper function to convert an image to grayscale and extract the red channel buffer
+        const toRedChannelBuffer = async (imgPath) => {
+            if (imgPath) {
+                const { data } = await sharp(imgPath)
+                    .grayscale() // Convert to grayscale
+                    .flatten({ background: '#000000' }) // Flatten image onto black background
+                    .raw()
+                    .toBuffer({ resolveWithObject: true });
+                return data;
+            }
+            return Buffer.alloc(width * height, 0); // Return buffer filled with zeros if image does not exist
+        };
+
+        // Convert images to grayscale and extract red channel buffers
+        const redBuffer = await toRedChannelBuffer(image1);
+        const greenBuffer = await toRedChannelBuffer(image2);
+        const blueBuffer = await toRedChannelBuffer(image3);
+
+        // Allocate buffer for RGB (no alpha channel)
+        const combinedBuffer = Buffer.alloc(width * height * 3);
+
+        // Combine the red channels from each image into the final image's RGB channels
+        for (let i = 0; i < width * height; i++) {
+            combinedBuffer[i * 3] = redBuffer[i];      // Red channel from the first image
+            combinedBuffer[i * 3 + 1] = greenBuffer[i]; // Green channel from the second image
+            combinedBuffer[i * 3 + 2] = blueBuffer[i];  // Blue channel from the third image
+        }
+
+        return [combinedBuffer, { width, height, channels: 3 }];
+    }
+
+
+
+    async onEveryFile(next, { file }) {
+        this.fileCollector.push(file)
+
+        next(file);
+    }
+
+    async onBody(next, { files, ...props }) {
+        for (let i = 0; i < this.fileCollector.length; i += 3) {
+            this.groups.push(this.fileCollector.slice(i, i + 3));
+        }
+
+        const buffers = await Promise.all(this.groups.map(async (group, i) => {
+            if (group.length < 2) Promise.resolve();
+            const [combinedBuffer, info] = await this.combineImages(...group);
+            return { combinedBuffer, width: info.width, height: info.height, channels: info.channels, ext: path.extname(group[0]), filename: group.map(e => path.basename(e.replace(path.extname(e), ''))).join('__') }
+        }))
+
+        await Promise.all(files.map((file) => Tool.removeDir(file)))
+
+        await Promise.all(buffers.map(async ({ combinedBuffer, width, height, channels, ext, filename }) => {
+            await sharp(combinedBuffer, { raw: { width, height, channels } }).toFile(path.resolve(props.pathIn, filename + ext));
+        }))
+
+        this.fileCollector = [];
+
+        super.onBody(next, { files, ...props });
+    }
+}
+
+export default ToolCombine

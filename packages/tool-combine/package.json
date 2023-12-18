@@ -1,0 +1,32 @@
+
+{
+    "name": "@toolx/tool-combine",
+    "version": "1.0.0",
+    "description": "",
+    "main": "ToolCombine.js",
+    "source": "ToolCombine.js",
+    "publishConfig": {
+        "access": "public",
+        "main": "ToolCombine.js"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "dependencies": {
+        "@toolx/core": "^1.0.1",
+        "sharp": "^0.32.0"
+    },
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/williammanco/toolx.git"
+    },
+    "author": "William Manco",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/williammanco/toolx/issues"
+    },
+    "homepage": "https://github.com/williammanco/toolx#readme"
+}
