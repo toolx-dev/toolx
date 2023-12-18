@@ -11,7 +11,15 @@ ToolX is structured around two core concepts: `Tool` and `Pipeline`.
 
 ## Using Tools
 
-Each `Tool` in ToolX is a standalone module with its own set of functionalities. Here's a general guide on how to use a `Tool`:
+Each `Tool` in ToolX is a standalone module with its own set of functionalities.
+
+### Argument Structure for Tools
+
+When invoking the `run` method of a ToolX tool, the arguments are typically as follows:
+
+1. **Options**: An object containing configuration settings for the tool. These settings vary depending on the tool's functionality.
+2. **Input Path**: The path to the files or data to be processed. This supports `fast-glob` patterns, allowing the tool to handle multiple files.
+3. **Output Path**: The destination path for the processed files or data.
 
 ### Example: ToolSvg
 
@@ -73,28 +81,6 @@ pipeline.run(executionOptions, inputPath, outputPath).then(() => {
 });
 
 ```
-
-### Example: PipelineIcons
-
-`PipelineIcons` is a complex pipeline for handling icon-related tasks, integrating tools like `ToolIcons`, `ToolFont`, and `ToolSvg`.
-
-```javascript
-import runPipeline from '@toolx/pipeline-icons';
-
-// Configuring the pipeline
-const options = {
-    // Pipeline specific options
-};
-
-// Execute the pipeline
-runPipeline(options, inputPath, outputPath).then(() => {
-    console.log('Icon pipeline processing complete');
-});
-```
-
-### Process Flow
-
-The `PipelineIcons` involves several steps, including SVG optimization, font generation, and more.
 
 ## Conclusion
 

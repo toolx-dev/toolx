@@ -8,6 +8,8 @@
         "node": ">=18.0.0"
     },
     "scripts": {
+        "create": "node ./scripts/create.js",
+        "version": "node ./scripts/version.js",
         "test": "vitest run",
         "test:watch": "vitest"
     },
@@ -15,7 +17,8 @@
         "packages/core",
         "packages/tool-json",
         "packages/tool-svg",
-        "packages/tool-sharp"
+        "packages/tool-sharp",
+        "packages/tool-combine"
     ],
     "devDependencies": {
         "@types/node": "^18.11.9",

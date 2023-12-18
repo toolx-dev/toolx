@@ -5,4 +5,7 @@ node_modules/
 .nyc_output/
 *.log
 *.tgz
-scripts/
+
+# System files
+.DS_Store
+Thumbs.db
