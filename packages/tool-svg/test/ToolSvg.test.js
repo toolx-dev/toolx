@@ -5,7 +5,7 @@ import os from 'node:os';
 import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
-describe('Tool class', () => {
+describe('ToolSvg', () => {
     let toolInstance;
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
