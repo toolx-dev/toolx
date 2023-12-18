@@ -39,7 +39,9 @@ async function bumpVersion(packageName, type) {
     console.log(`Version bumped for ${packageName} from v${prevPackageJson.version} to v${packageVersion}`);
 
     await execCommand(`git tag ${packageName}/${packageVersion}`);
-    // await execCommand(`git push origin ${packageName}/${packageVersion}`);
+    await execCommand(`git add .`);
+    await execCommand(`git commit -m "bump version to ${packageVersion}"`);
+    await execCommand(`git push origin ${packageName}/${packageVersion}`);
 
     console.log(`Tag created and pushed for ${packageName} v${packageVersion}`);
 }
