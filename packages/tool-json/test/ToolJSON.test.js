@@ -4,7 +4,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
-describe('Tool class', () => {
+describe('ToolJSON', () => {
     let toolInstance;
 
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
