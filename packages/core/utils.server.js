@@ -1,4 +1,6 @@
 import { spawn, exec } from 'node:child_process';
+import mustargs from 'mustargs';
+import glob from 'fast-glob'
 
 const checkPythonPackages = (packages) => {
     return new Promise((resolve) => {
@@ -52,7 +54,21 @@ const runPython = (script, args) => runCLI('python3', script, args);
 
 const runNode = (script, args) => runCLI('node', script, args);
 
+const getArgsFromCLI = () => {
+    const args = mustargs(process.argv.slice(2));
+
+    const pathIn = args.pathIn || args.i || process.cwd() + '/';
+
+    const { base } = glob.generateTasks(pathIn, { objectMode: true })[0];
+
+    const pathOut = args.pathOut || args.o || base + '/';
+    const options = args.options || args.opts || args.s || {};
+
+    return { ...args, options, pathIn, pathOut }
+}
+
 export {
+    getArgsFromCLI,
     checkPythonPackages,
     runPython,
     runCLI,
