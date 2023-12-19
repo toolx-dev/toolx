@@ -10,6 +10,8 @@
     "scripts": {
         "create": "node ./scripts/create.js",
         "version": "node ./scripts/version.js",
+        "types": "node ./scripts/types.js && npx -p typescript tsc packages/**/*.js --declaration --allowJs --emitDeclarationOnly",
+        "publish": "npm publish --workspaces",
         "test": "vitest run",
         "test:watch": "vitest"
     },
@@ -18,12 +20,13 @@
         "packages/tool-json",
         "packages/tool-svg",
         "packages/tool-sharp",
-        "packages/tool-combine"
+        "packages/tool-combine",
+        "packages/tool-remove"
     ],
     "devDependencies": {
         "@types/node": "^18.11.9",
         "eslint": "^8.30.0",
-        "mustargs": "^1.0.3",
+        "mustargs": "^1.0.4",
         "vitest": "^1.0.4"
     }
 }

@@ -2,6 +2,7 @@ import { Tool } from '@toolx/core';
 import { toCamelCase } from '@toolx/core/utils.js';
 import fs from 'node:fs';
 import path from 'node:path';
+import { execCommand } from './utils.js'
 
 const args = process.argv.slice(2);
 
@@ -24,6 +25,9 @@ const templatePackage = (name, version) => /* json */`{
     "description": "",
     "main": "Tool${toCamelCase(name, true)}.js",
     "source": "Tool${toCamelCase(name, true)}.js",
+    "bin": {
+        "tool-${name}": "./Tool${toCamelCase(name, true)}.cli.mjs"
+    },
     "publishConfig": {
         "access": "public",
         "main": "Tool${toCamelCase(name, true)}.js"
@@ -67,6 +71,16 @@ describe('Tool${name}', () => {
 
 const templateReadme = (name) => /*js*/`#tool-${name}`;
 
+const templateCLI = (name) => /*js*/`#!/usr/bin/env node
+import Tool from './Tool${name}.js'
+import { getArgsFromCLI } from '@toolx/core/utils.server.js'
+
+const { options, pathIn, pathOut } = getArgsFromCLI();
+const tool = new Tool(options, pathIn, pathOut);
+
+tool.run();
+`
+
 const run = async () => {
     const [name] = args;
     // const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -81,10 +95,13 @@ const run = async () => {
     if (folder) {
         await fs.promises.writeFile(`${dir}Tool${nameCamelCase}.js`, templateJS(nameCamelCase));
         await fs.promises.writeFile(`${dir}package.json`, templatePackage(name, version));
+        await fs.promises.writeFile(`${dir}Tool${nameCamelCase}.cli.mjs`, templateCLI(nameCamelCase));
+        await fs.promises.writeFile(`${dir}/README.md`, templateReadme(name));
+
+        await execCommand(`chmod +x ${dir}Tool${nameCamelCase}.cli.js`);
 
         await Tool.createDir(path.join(dir, 'test'));
         await fs.promises.writeFile(`${path.join(dir, 'test')}/Tool${nameCamelCase}.test.js`, templateTest(nameCamelCase));
-        await fs.promises.writeFile(`${dir}/README.md`, templateReadme(name));
 
         const packageRootInfoEdited = JSON.parse(packageRootInfo);
         packageRootInfoEdited.workspaces.push(`packages/tool-${name}`)

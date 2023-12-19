@@ -1,6 +1,6 @@
-import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import { execCommand } from './utils.js'
 
 async function init() {
     try {
@@ -44,18 +44,6 @@ async function bumpVersion(packageName, type) {
     await execCommand(`git push origin ${packageName}/${packageVersion}`);
 
     console.log(`Tag created and pushed for ${packageName} v${packageVersion}`);
-}
-
-async function execCommand(command) {
-    return new Promise((resolve, reject) => {
-        exec(command, (error, stdout, stderr) => {
-            if (error) {
-                reject(new Error(`Command failed: ${command}\nError: ${error.message}`));
-            } else {
-                resolve(stdout);
-            }
-        });
-    });
 }
 
 async function getAllPackageNames() {
