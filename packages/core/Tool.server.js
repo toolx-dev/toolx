@@ -131,7 +131,7 @@ class Tool extends Base {
         await Tool.createDir(pathTemp);
 
         // Create the output directory if it doesn't exist
-        await Tool.createDir(pathOut);
+        if (!this.opts?.noTempCopy) await Tool.createDir(pathOut);
 
         // Copy files from input paths to the temporary path
         const filesPath = await this.copyFiles(_pathIn, pathTemp);
@@ -199,7 +199,6 @@ class Tool extends Base {
                         if ((this.opts?.exts && Tool.checkFileExt(nextFile, this.opts.exts)) || !this.opts?.exts) {
                             // Execute the fileRun function for the current file
                             const outputFile = fileRun(nextFile, index, value).then((file) => {
-
                                 this.eventHandler.emit(Tool.EVENTS.PROCESS, { file })
 
                                 // Push the resolved file value to the filesOutput array
@@ -286,43 +285,33 @@ class Tool extends Base {
      */
     async copyFiles(pathsIn, pathOut, onCopy) {
         try {
-            const copyPromises = await Promise.all(pathsIn.map(async (_pathIn) => {
-                const { dynamic } = glob.generateTasks(_pathIn, { objectMode: true })[0];
+            const _glob = glob.generateTasks(pathsIn, { objectMode: true })[0];
+            const files = await glob(pathsIn, {
+                objectMode: false,
+                dot: false,
+                extglob: true,
+                globstar: true,
+                markDirectories: true
+            });
 
-                const pathIn = this.isTempFolder(_pathIn) && !dynamic ? _pathIn : _pathIn;
+            this.opts.basePathIn = _glob.base;
 
-                const files = await glob(pathIn, {
-                    objectMode: false,
-                    dot: false,
-                    extglob: true,
-                    globstar: true,
-                });
+            if (files.length === 0) {
+                return Promise.resolve([]);
+            }
 
-                const { base } = glob.generateTasks(pathIn, { objectMode: true })[0];
+            if (this.opts?.noTempCopy) {
+                return files
+            }
 
-                this.opts.basePathIn = base;
+            const copyPromises = Promise.all(files.map((pathFile) => {
+                let pathFileOut = pathFile.replace(_glob.base, pathOut);
 
-                if (files.length === 0) {
-                    return Promise.resolve([]);
-                }
-
-                return Promise.all(files.map((pathFile) => {
-                    const basePath = this.opts?.basePath;
-                    let pathFileOut = pathFile.replace(base, pathOut);
-
-                    if (basePath && pathFile.startsWith(basePath) && !dynamic) {
-                        const file = path.basename(pathFile);
-                        const subPath = pathFile.replace(basePath, '').replace(file, '');
-                        console.log(pathOut + subPath + file)
-                        pathFileOut = pathOut + subPath + file;
-                    }
-
-                    if (onCopy) onCopy(pathFileOut)
-                    return fs.promises.cp(pathFile, pathFileOut, { recursive: false }).then(() => pathFileOut);
-                }))
+                if (onCopy) onCopy(pathFileOut)
+                return fs.promises.cp(pathFile, pathFileOut, { recursive: false }).then(() => pathFileOut);
             }))
 
-            return copyPromises.flat();
+            return copyPromises;
 
         } catch (error) {
             console.error('Error reading source folder:', error);
