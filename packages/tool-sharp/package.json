@@ -1,6 +1,6 @@
 {
     "name": "@toolx/tool-sharp",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "ToolSharp",
     "main": "ToolSharp.js",
     "module": "ToolSharp.js",
