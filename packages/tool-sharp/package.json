@@ -1,6 +1,6 @@
 {
     "name": "@toolx/tool-sharp",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "ToolSharp",
     "main": "ToolSharp.js",
     "module": "ToolSharp.js",
@@ -15,7 +15,7 @@
     "type": "module",
     "sideEffects": false,
     "dependencies": {
-        "@toolx/core": "^1.0.1",
+        "@toolx/core": "^1.1.1",
         "sharp": "^0.32.0"
     },
     "scripts": {
