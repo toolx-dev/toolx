@@ -57,7 +57,7 @@ const runNode = (script, args) => runCLI('node', script, args);
 const getArgsFromCLI = () => {
     const args = mustargs(process.argv.slice(2));
 
-    const pathIn = args.pathIn || args.i || process.cwd() + '/';
+    const pathIn = args.pathIn || args.i || process.cwd() + '/**/*';
 
     const { base } = glob.generateTasks(pathIn, { objectMode: true })[0];
 
