@@ -8,6 +8,9 @@
         "access": "public",
         "main": "ToolJSON.js"
     },
+    "bin": {
+        "tool-json": "./ToolJSON.cli.mjs"
+    },
     "type": "module",
     "sideEffects": false,
     "dependencies": {

@@ -5,6 +5,10 @@
     "main": "server.js",
     "module": "server.js",
     "source": "server.js",
+    "types": "server.d.ts",
+    "bin": {
+        "toolx": "./cli.mjs"
+    },
     "publishConfig": {
         "access": "public",
         "main": "server.js"
@@ -12,7 +16,8 @@
     "type": "module",
     "sideEffects": false,
     "dependencies": {
-        "fast-glob": "^3.2.12"
+        "fast-glob": "^3.2.12",
+        "mustargs": "^1.0.4"
     },
     "scripts": {
         "test": "vitest run",

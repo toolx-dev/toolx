@@ -9,6 +9,9 @@
         "access": "public",
         "main": "ToolSharp.js"
     },
+    "bin": {
+        "tool-sharp": "./ToolSharp.cli.mjs"
+    },
     "type": "module",
     "sideEffects": false,
     "dependencies": {

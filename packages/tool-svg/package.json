@@ -8,6 +8,9 @@
         "access": "public",
         "main": "ToolSvg.js"
     },
+    "bin": {
+        "tool-svg": "./ToolSvg.cli.mjs"
+    },
     "type": "module",
     "sideEffects": false,
     "dependencies": {

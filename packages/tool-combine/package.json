@@ -4,6 +4,9 @@
     "description": "",
     "main": "ToolCombine.js",
     "source": "ToolCombine.js",
+    "bin": {
+        "tool-combine": "./ToolCombine.cli.mjs"
+    },
     "publishConfig": {
         "access": "public",
         "main": "ToolCombine.js"
