@@ -1,0 +1,32 @@
+{
+    "name": "@toolx/tool-remove",
+    "version": "1.0.0",
+    "description": "",
+    "main": "ToolRemove.js",
+    "source": "ToolRemove.js",
+    "bin": {
+        "tool-remove": "./ToolRemove.cli.mjs"
+    },
+    "publishConfig": {
+        "access": "public",
+        "main": "ToolRemove.js"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "dependencies": {
+        "@toolx/core": "^1.0.2"
+    },
+    "scripts": {
+        "test": "echo 'Error: no test specified' && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/williammanco/toolx.git"
+    },
+    "author": "William Manco",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/williammanco/toolx/issues"
+    },
+    "homepage": "https://github.com/williammanco/toolx#readme"
+}
