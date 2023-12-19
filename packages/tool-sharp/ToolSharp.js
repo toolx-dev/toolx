@@ -1,5 +1,5 @@
 import Tool from '@toolx/core/Tool.server.js';
-import sharp, { Sharp, ResizeOptions, OutputInfo } from 'sharp';
+import sharp from 'sharp';
 import path from 'node:path';
 import fs from 'node:fs';
 
