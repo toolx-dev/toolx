@@ -1,6 +1,6 @@
 {
     "name": "@toolx/core",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "ToolX - a versatile toolkit designed for efficient file manipulation and processing.",
     "main": "server.js",
     "module": "server.js",
