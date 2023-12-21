@@ -1,3 +1,15 @@
+<p align="center">
+  <a href="https://www.npmjs.com/package/@toolx/core" target="_blank" rel="noopener noreferrer">
+    <img width="180" src="https://avatars.githubusercontent.com/u/154528565?s=200&v=4" alt="ToolX logo">
+  </a>
+</p>
+<br/>
+<p align="center">
+  <a href="https://www.npmjs.com/package/@toolx/core"><img src="https://img.shields.io/npm/v/@toolx/core" alt="npm package"></a>
+</p>
+<br/>
+
+
 # ToolX
 
 ToolX is structured around two core concepts: `Tool` and `Pipeline`.
