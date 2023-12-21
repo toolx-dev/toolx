@@ -63,20 +63,20 @@ describe('Tool class', () => {
         expect(file2Exists).toBe(false);
     });
 
-    it('should remove a directory and its contents', async () => {
-        //TODO: check this test
+    //TODO: check this test
+    //it('should remove a directory and its contents', async () => {
 
-        // const tempDirPath = path.join(os.tmpdir(), `toolTestRemoveDir`);
-        // await Tool.createDir(tempDirPath);
+    // const tempDirPath = path.join(os.tmpdir(), `toolTestRemoveDir`);
+    // await Tool.createDir(tempDirPath);
 
-        // const tempFilePath = path.join(tempDirPath, 'temp.txt');
-        // await fs.writeFile(tempFilePath, 'Hello, World!');
+    // const tempFilePath = path.join(tempDirPath, 'temp.txt');
+    // await fs.writeFile(tempFilePath, 'Hello, World!');
 
-        // await Tool.removeDir(tempDirPath);
+    // await Tool.removeDir(tempDirPath);
 
-        // const dirExists = await Tool.exist(tempDirPath);
-        // expect(dirExists).toBe(false);
-    });
+    // const dirExists = await Tool.exist(tempDirPath);
+    // expect(dirExists).toBe(false);
+    //});
 
     it('should run the tool logic', async () => {
         const tempDir = path.join(os.tmpdir(), `Tool`);
