@@ -1,7 +1,7 @@
 {
     "name": "@toolx/remove",
     "version": "1.0.1",
-    "description": "",
+    "description": "Designed for file and directory removal operations.",
     "main": "ToolRemove.js",
     "source": "ToolRemove.js",
     "bin": {
