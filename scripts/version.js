@@ -19,6 +19,14 @@ async function init() {
             }
         } else {
             await bumpVersion(packageName, type);
+
+            if (packageName === 'core') {
+                let packageNames = await getAllPackageNames();
+                packageNames = packageNames.filter(e => e !== 'core');
+                for (const pkgName of packageNames) {
+                    await bumpVersion(pkgName, 'patch');
+                }
+            }
         }
     } catch (error) {
         console.error(error);
@@ -26,10 +34,21 @@ async function init() {
 }
 
 async function bumpVersion(packageName, type) {
+    const packageCoreDir = path.join(process.cwd(), 'packages', 'core');
+    const packageJsonCorePath = path.join(packageCoreDir, 'package.json');
+
     const packageDir = path.join(process.cwd(), 'packages', packageName);
     const packageJsonPath = path.join(packageDir, 'package.json');
 
     const prevPackageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf-8'));
+    const rootPackageJson = JSON.parse(await fs.promises.readFile(packageJsonCorePath, 'utf-8'));
+
+    prevPackageJson.dependencies["@toolx/core"] = `^${rootPackageJson.version}`;
+
+    if (packageName !== 'core')
+        await fs.promises.writeFile(packageJsonPath, JSON.stringify(prevPackageJson, null, 4));
+
+    await execCommand(`cd ${packageDir} && npm run test`);
 
     await execCommand(`cd ${packageDir} && npm version ${type}`);
 
@@ -40,7 +59,7 @@ async function bumpVersion(packageName, type) {
 
     await execCommand(`git tag ${packageName}/${packageVersion}`);
     await execCommand(`git add .`);
-    await execCommand(`git commit -m "bump version to ${packageVersion}"`);
+    await execCommand(`git commit -m "bump version"`);
     await execCommand(`git push origin ${packageName}/${packageVersion}`);
 
     console.log(`Tag created and pushed for ${packageName} v${packageVersion}`);
