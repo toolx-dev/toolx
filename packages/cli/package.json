@@ -11,6 +11,9 @@
         "access": "public",
         "main": "cli.js"
     },
+    "scripts": {
+        "test": "exit 0"
+    },
     "type": "module",
     "sideEffects": false,
     "dependencies": {
