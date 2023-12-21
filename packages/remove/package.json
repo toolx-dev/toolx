@@ -1,6 +1,6 @@
 {
     "name": "@toolx/remove",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Designed for file and directory removal operations.",
     "main": "ToolRemove.js",
     "source": "ToolRemove.js",
@@ -14,7 +14,7 @@
     "type": "module",
     "sideEffects": false,
     "dependencies": {
-        "@toolx/core": "^1.1.2"
+        "@toolx/core": "^1.1.3"
     },
     "scripts": {
         "test": "vitest run",
