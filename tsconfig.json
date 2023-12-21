@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "allowJs": true,
+        "emitDeclarationOnly": true
+    },
+    "include": [
+        "packages/core/*.js",
+        "packages/combine/ToolCombine.js",
+        "packages/json/ToolJSON.js",
+        "packages/remove/ToolRemove.js",
+        "packages/sharp/ToolSharp.js",
+        "packages/svg/ToolSvg.js"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

@@ -1,4 +1,4 @@
-import ToolRemove from '@toolx/tool-remove';
+import ToolRemove from '@toolx/remove';
 
 const run = async () => {
     const tool = new ToolRemove({}, [`${process.cwd()}/**/*.d.ts`, `!**/node_modules`])

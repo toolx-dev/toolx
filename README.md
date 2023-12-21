@@ -26,7 +26,7 @@ When invoking the `run` method of a ToolX tool, the arguments are typically as f
 `ToolSvg` is used for SVG file optimization. It leverages the SVGO library for this purpose.
 
 ```javascript
-import ToolSvg from '@toolx/tool-svg';
+import ToolSvg from '@toolx/svg';
 
 // Initialize the tool with options
 const toolSvg = new ToolSvg({
@@ -53,8 +53,8 @@ In this example, we demonstrate the creation of a custom pipeline using the Tool
 
 ```javascript
 import { Pipeline } from '@toolx/core';
-import ToolSharp from '@toolx/tool-sharp';
-import ToolSvg from '@toolx/tool-svg';
+import ToolSharp from '@toolx/sharp';
+import ToolSvg from '@toolx/svg';
 
 // Initialize the pipeline with optional configurations
 const pipeline = new Pipeline();
