@@ -6,36 +6,6 @@
 
 The `Pipeline` class, extending `Base`, allows for chaining multiple operations (tools or functions) to process data in a sequential and organized manner.
 
-### Properties and Methods
-
-#### `static recompose(composed, options, pathIn, pathOut)`
-
-Recomposes a pipeline, allowing for dynamic creation and modification of pipeline sequences.
-
-- `composed`: A composed pipeline function.
-- `options`: Configuration options for the pipeline.
-- `pathIn`: Input path(s).
-- `pathOut`: Output path.
-
-##### Example
-
-```javascript
-const recomposedPipeline = Pipeline.recompose(existingPipeline, options, 'input/path', 'output/path');
-```
-
-#### `connect(plugin, ...props)`
-
-Connects a plugin or a tool to the pipeline, integrating it into the processing sequence.
-
-- `plugin`: The plugin or tool to be connected.
-- `props`: Additional properties or configurations for the plugin.
-
-##### Example
-
-```javascript
-pipelineInstance.connect(toolInstance, toolOptions);
-```
-
 #### `compose(...fns)`
 
 Composes multiple functions or tools into a single pipeline. Each function or tool is executed in the order provided.

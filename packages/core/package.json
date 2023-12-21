@@ -10,6 +10,10 @@
         "access": "public",
         "main": "server.js"
     },
+    "engines": {
+        "npm": ">=8.3.1",
+        "node": ">=18.0.0"
+    },
     "type": "module",
     "sideEffects": false,
     "dependencies": {
