@@ -1,11 +1,11 @@
 {
-    "name": "@toolx/tool-remove",
-    "version": "1.0.1",
+    "name": "@toolx/remove",
+    "version": "1.0.0",
     "description": "",
     "main": "ToolRemove.js",
     "source": "ToolRemove.js",
     "bin": {
-        "tool-remove": "./ToolRemove.cli.mjs"
+        "toolx-remove": "./ToolRemove.cli.js"
     },
     "publishConfig": {
         "access": "public",
@@ -17,7 +17,8 @@
         "@toolx/core": "^1.1.1"
     },
     "scripts": {
-        "test": "echo 'Error: no test specified' && exit 1"
+        "test": "vitest run",
+        "test:watch": "vitest"
     },
     "repository": {
         "type": "git",

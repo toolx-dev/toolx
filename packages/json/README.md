@@ -15,7 +15,7 @@ While ToolJSON.js currently excels in file native compression, plans are underwa
 ### Importing ToolJSON
 
 ```js
-import ToolJSON from '@toolx/tool-json';
+import ToolJSON from '@toolx/json';
 ```
 
 ### Direct Usage
@@ -33,8 +33,8 @@ toolJson.run(options, inputFilePath, outputFilePath).then(() => {
 
 ```js
 import { Pipeline } from '@toolx/core';
-import ToolJSON from '@toolx/tool-json';
-import ToolOther from '@toolx/tool-other'; // Example of another tool
+import ToolJSON from '@toolx/json';
+import ToolOther from '@toolx/other'; // Example of another tool
 
 // Setting up the pipeline
 const pipeline = new Pipeline();

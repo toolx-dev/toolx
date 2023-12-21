@@ -23,7 +23,7 @@ The `settings` option allows customization of various SVG optimization parameter
 ### Direct Usage
 
 ```js
-import ToolSvg from '@toolx/tool-svg';
+import ToolSvg from '@toolx/svg';
 
 // Example usage
 const toolSvg = new ToolSvg({
@@ -45,7 +45,7 @@ toolSvg.run(options, inputFile, outputFile).then(() => {
 
 ```js
 import { Pipeline } from '@toolx/core';
-import ToolSvg from '@toolx/tool-svg';
+import ToolSvg from '@toolx/svg';
 
 // Setting up the pipeline
 const pipeline = new Pipeline();

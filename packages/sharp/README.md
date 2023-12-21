@@ -25,7 +25,7 @@ The `settings` option allows detailed configuration of image processing paramete
 ### Direct Usage
 
 ```js
-import ToolSharp from '@toolx/tool-sharp';
+import ToolSharp from '@toolx/sharp';
 
 // Example usage
 const toolSharp = new ToolSharp({
@@ -49,7 +49,7 @@ toolSharp.run(options, inputFile, outputFile).then(() => {
 
 ```js
 import { Pipeline } from '@toolx/core';
-import ToolSharp from '@toolx/tool-sharp';
+import ToolSharp from '@toolx/sharp';
 
 // Setting up the pipeline
 const pipeline = new Pipeline();

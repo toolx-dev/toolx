@@ -1,13 +1,15 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import Tool from '../ToolSharp';
+import Tool from '../ToolSvg';
 import path from 'node:path';
 import os from 'node:os';
 import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
-describe('ToolSharp', () => {
+describe('ToolSvg', async () => {
     let toolInstance;
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+    await Tool.removeDir(path.join(os.tmpdir(), `ToolSvg`));
 
     beforeEach(async () => {
         toolInstance = new Tool();
@@ -18,16 +20,19 @@ describe('ToolSharp', () => {
     });
 
     it('should run the tool logic', async () => {
-        const tempDir = path.join(os.tmpdir(), `ToolSharp`);
+        const tempDir = path.join(os.tmpdir(), `ToolSvg`);
         const tempDirPathOut = path.join(tempDir, `out`);
 
         const tempFilePath = `${__dirname}/assets/**/*`;
 
         const options = {
-            api: {
-                webp: true,
-            },
-            ext: '.webp',
+            settings: {
+                floatPrecision: 5,
+                transformPrecision: 5,
+                js2svg: {
+                    pretty: true
+                }
+            }
         };
         const pathIn = tempFilePath;
         const pathOut = tempDirPathOut;
@@ -37,6 +42,6 @@ describe('ToolSharp', () => {
 
         const processedFiles = await fs.promises.readdir(tempDirPathOut)
 
-        expect(processedFiles.some(e => e.includes('.webp'))).toEqual(true)
+        expect(processedFiles.some(e => e.includes('.svg'))).toEqual(true)
     });
 });

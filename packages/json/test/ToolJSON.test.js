@@ -4,10 +4,12 @@ import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
-describe('ToolJSON', () => {
+describe('ToolJSON', async () => {
     let toolInstance;
 
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+    await Tool.removeDir(path.join(os.tmpdir(), `ToolJSON`));
 
     beforeEach(async () => {
         toolInstance = new Tool();

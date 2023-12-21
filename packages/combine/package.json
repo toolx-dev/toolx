@@ -1,20 +1,21 @@
 {
-    "name": "@toolx/tool-json",
-    "version": "1.0.3",
+    "name": "@toolx/combine",
+    "version": "1.0.0",
     "description": "",
-    "main": "ToolJSON.js",
-    "source": "ToolJSON.js",
+    "main": "ToolCombine.js",
+    "source": "ToolCombine.js",
+    "bin": {
+        "toolx-combine": "./ToolCombine.cli.mjs"
+    },
     "publishConfig": {
         "access": "public",
-        "main": "ToolJSON.js"
-    },
-    "bin": {
-        "tool-json": "./ToolJSON.cli.mjs"
+        "main": "ToolCombine.js"
     },
     "type": "module",
     "sideEffects": false,
     "dependencies": {
-        "@toolx/core": "^1.1.1"
+        "@toolx/core": "^1.1.1",
+        "sharp": "^0.32.0"
     },
     "scripts": {
         "test": "vitest run",
@@ -24,8 +25,8 @@
         "type": "git",
         "url": "git+https://github.com/williammanco/toolx.git"
     },
-    "author": "",
-    "license": "MIT",
+    "author": "William Manco",
+    "license": "Apache-2.0",
     "bugs": {
         "url": "https://github.com/williammanco/toolx/issues"
     },

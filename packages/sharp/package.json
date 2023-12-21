@@ -1,6 +1,6 @@
 {
-    "name": "@toolx/tool-sharp",
-    "version": "1.0.5",
+    "name": "@toolx/sharp",
+    "version": "1.0.0",
     "description": "ToolSharp",
     "main": "ToolSharp.js",
     "module": "ToolSharp.js",
@@ -10,7 +10,7 @@
         "main": "ToolSharp.js"
     },
     "bin": {
-        "tool-sharp": "./ToolSharp.cli.mjs"
+        "toolx-sharp": "./ToolSharp.cli.js"
     },
     "type": "module",
     "sideEffects": false,

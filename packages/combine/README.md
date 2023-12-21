@@ -20,7 +20,7 @@ If more than three images are provided, they are grouped and merged into multipl
 ### Direct Usage
 
 ```js
-import ToolCombine from '@toolx/tool-combine';
+import ToolCombine from '@toolx/combine';
 
 // Example usage with an array of image paths
 const images = ['image1.jpg', 'image2.jpg', 'image3.jpg', /* more images */];
@@ -38,8 +38,8 @@ In a pipeline, `ToolCombine` can be used in conjunction with other image process
 
 ```js
 import { Pipeline } from '@toolx/core';
-import ToolCombine from '@toolx/tool-combine';
-import ToolOther from '@toolx/tool-other'; // Example of another tool
+import ToolCombine from '@toolx/combine';
+import ToolOther from '@toolx/other'; // Example of another tool
 
 // Setting up the pipeline
 const pipeline = new Pipeline();
