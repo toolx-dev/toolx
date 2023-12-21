@@ -20,13 +20,13 @@ export default Tool${name}
 
 
 const templatePackage = (name, version) => /* json */`{
-    "name": "@toolx/tool-${toCamelCase(name).toLowerCase()}",
+    "name": "@toolx/${toCamelCase(name).toLowerCase()}",
     "version": "${version.split('.')[0]}.0.0",
     "description": "",
     "main": "Tool${toCamelCase(name, true)}.js",
     "source": "Tool${toCamelCase(name, true)}.js",
     "bin": {
-        "tool-${name}": "./Tool${toCamelCase(name, true)}.cli.mjs"
+        "toolx-${name}": "./Tool${toCamelCase(name, true)}.cli.js"
     },
     "publishConfig": {
         "access": "public",
@@ -38,7 +38,8 @@ const templatePackage = (name, version) => /* json */`{
         "@toolx/core": "^${version}"
     },
     "scripts": {
-        "test": "echo 'Error: no test specified' && exit 1"
+        "test": "vitest run",
+        "test:watch": "vitest"
     },
     "repository": {
         "type": "git",
@@ -83,19 +84,20 @@ tool.run();
 
 const run = async () => {
     const [name] = args;
-    // const __dirname = path.dirname(fileURLToPath(import.meta.url));
-    const dir = `${process.cwd()}/packages/tool-${toCamelCase(name).toLowerCase()}/`;
+
+    const dir = `${process.cwd()}/packages/${toCamelCase(name).toLowerCase()}/`;
     const folder = await Tool.createDir(dir);
     const nameCamelCase = toCamelCase(name, true);
 
     const packageInfo = await fs.promises.readFile(`${process.cwd()}/packages/core/package.json`);
     const packageRootInfo = await fs.promises.readFile(`${process.cwd()}/package.json`);
+    const tsconfig = await fs.promises.readFile(`${process.cwd()}/tsconfig.json`);
     const version = JSON.parse(packageInfo).version;
 
     if (folder) {
         await fs.promises.writeFile(`${dir}Tool${nameCamelCase}.js`, templateJS(nameCamelCase));
         await fs.promises.writeFile(`${dir}package.json`, templatePackage(name, version));
-        await fs.promises.writeFile(`${dir}Tool${nameCamelCase}.cli.mjs`, templateCLI(nameCamelCase));
+        await fs.promises.writeFile(`${dir}Tool${nameCamelCase}.cli.js`, templateCLI(nameCamelCase));
         await fs.promises.writeFile(`${dir}/README.md`, templateReadme(name));
 
         await execCommand(`chmod +x ${dir}Tool${nameCamelCase}.cli.js`);
@@ -104,8 +106,12 @@ const run = async () => {
         await fs.promises.writeFile(`${path.join(dir, 'test')}/Tool${nameCamelCase}.test.js`, templateTest(nameCamelCase));
 
         const packageRootInfoEdited = JSON.parse(packageRootInfo);
-        packageRootInfoEdited.workspaces.push(`packages/tool-${name}`)
+        packageRootInfoEdited.workspaces.push(`packages/${name}`)
         await fs.promises.writeFile(`${process.cwd()}/package.json`, JSON.stringify(packageRootInfoEdited, null, 4));
+
+        const tsconfigEdited = JSON.parse(tsconfig);
+        tsconfigEdited.include.push(`packages/${name}/Tool${toCamelCase(name, true)}.js`)
+        await fs.promises.writeFile(`${process.cwd()}/tsconfig.json`, JSON.stringify(tsconfigEdited, null, 4));
     }
 };
 
