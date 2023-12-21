@@ -2,7 +2,7 @@
 
 ## Overview
 
-ToolX provides a versatile Command Line Interface (CLI) for utilizing its tools and pipelines. The CLI interface leverages `mustargs`, a custom library developed specifically for ToolX, to parse command line arguments into JavaScript objects. This functionality is crucial for handling array support and nested objects used in tool options.
+ToolX provides a versatile Command Line Interface (CLI) for utilizing its tools and pipelines. The CLI interface leverages `mustargs`, a custom [library](https://github.com/toolx-dev/mustargs) developed specifically for ToolX, to parse command line arguments into JavaScript objects. This functionality is crucial for handling array support and nested objects used in tool options.
 
 ## Key Features
 
@@ -15,27 +15,12 @@ ToolX provides a versatile Command Line Interface (CLI) for utilizing its tools 
 ### Command Structure
 
 ```sh
-toolx --tool <toolName> --options <optionsObject> -i <inputPath> -o <outputPath>
+toolx-<toolName> --options <optionsObject> -i <inputPath> -o <outputPath>
 ```
 
-- `--tool`: Specifies the tool to be used.
 - `--options`: Provides the options for the tool in a nested object format.
 - `-i` or `--pathIn`: Defines the input path.
 - `-o` or `--pathOut`: Sets the output path.
-
-### Executing a Pipeline
-
-To execute a pipeline, you use the `--pipeline` (or `-p`) argument in your CLI command, followed by the path to the pipeline you want to run. This approach is similar to how you would execute a tool using the `--tool` argument, but instead, you're pointing the CLI to a pipeline.
-
-```sh
-toolx --pipeline /path/to/your/pipeline --options <optionsObject> -i <inputPath> -o <outputPath>
-```
-
-- `--pipeline`: Specifies the path to the pipeline script you wish to execute.
-
-:::caution
-You can use either a tool or a pipeline in a single command, but not both simultaneously. The CLI is designed to handle one kind of operation per execution.
-:::
 
 ### Example Command
 
@@ -49,7 +34,6 @@ This command runs the `sharp` tool with a blur option set to `5`, processing a f
 
 - **Path Resolution**: Input and output paths are resolved, with the output path defaulting to the directory of the input file if not explicitly provided.
 - **Tool Import and Execution**: If a tool is specified, it's dynamically imported and executed with the provided options and paths.
-- **Pipeline Import and Execution**: For pipeline execution, the `Pipeline` class is imported, and the specified pipeline is run with the necessary tools and options.
 
 ## Future Enhancements
 
