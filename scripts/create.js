@@ -10,12 +10,52 @@ const templateJS = (name) => /*js*/`
 import Tool from '@toolx/core/Tool.server.js';
 
 class Tool${name} extends Tool {
+    /**
+    * Constructs a new Tool${name} instance.
+    * @param {ToolOptions} options - Configuration options for Tool${name}.
+    * @param {string | [string]} pathIn - The input path where the current files are located.
+    * @param {string} pathOut - The output path where the processed file will be stored.
+    */
+    constructor(options, pathIn, pathOut) {
+        super(options, pathIn, pathOut);
+    }
+
+    /**
+     * onEveryFile
+     * @param {function} next - Callback function to proceed to the next file or operation.
+     * @param {Object} param - The parameter object containing details for file processing.
+     * @param {string} param.file - The current file being processed.
+     * @param {string} param.pathIn - The input path where the current file is located.
+     * @param {string} param.pathOut - The output path where the processed file will be stored.
+     * @param {string[]} param.files - An array of file paths that are being processed in the current operation.
+     * @param {*} param.options - Additional options or settings specific to the current processing task.
+     * @param {*} param.prev - The result or data from the previous file processed or the previous step in the pipeline.
+     * @param {number} param.index - The index of the current file in the array of files being processed.
+     */
     async onEveryFile(next, { file, options }) {
         next(file);
+    }
+
+    /**
+     * onBody
+     * @param {function} next - Callback function to proceed to the next file or operation.
+     * @param {Object} param - The parameter object containing details for file processing.
+     * @param {string} param.pathIn - The input path where the current file is located.
+     * @param {string} param.pathOut - The output path where the processed file will be stored.
+     * @param {string[]} param.files - An array of file paths that are being processed in the current operation.
+     * @param {*} param.options - Additional options or settings specific to the current processing task.
+     */
+    async onBody(next, { files, ...props }) {
+        next(files);
     }
 }
 
 export default Tool${name}
+
+/**
+ * @typedef {Object} ToolOptions
+ */
+
 `;
 
 
