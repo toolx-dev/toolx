@@ -1,0 +1,33 @@
+{
+    "name": "@toolx/imagemin",
+    "version": "1.0.0",
+    "description": "",
+    "main": "ToolImagemin.js",
+    "source": "ToolImagemin.js",
+    "bin": {
+        "toolx-imagemin": "./ToolImagemin.cli.js"
+    },
+    "publishConfig": {
+        "access": "public",
+        "main": "ToolImagemin.js"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "dependencies": {
+        "@toolx/core": "^1.1.4"
+    },
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/williammanco/toolx.git"
+    },
+    "author": "William Manco",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/williammanco/toolx/issues"
+    },
+    "homepage": "https://github.com/williammanco/toolx#readme"
+}

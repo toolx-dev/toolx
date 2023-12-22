@@ -54,6 +54,9 @@ export default Tool${name}
 
 /**
  * @typedef {Object} ToolOptions
+ * @property {string[]} [exts] - Option to configure extensions.
+ * @property {string[]} [includes] - Option to configure include files with this string.
+ * @property {string[]} [excludes] - Option to configure exclude files with this string.
  */
 
 `;
