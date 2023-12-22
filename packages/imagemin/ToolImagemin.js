@@ -1,5 +1,8 @@
 
 import Tool from '@toolx/core/Tool.server.js';
+import imagemin from 'imagemin';
+import imageminJpegtran from 'imagemin-jpegtran';
+import imageminPngquant from 'imagemin-pngquant';
 
 class ToolImagemin extends Tool {
     /**
