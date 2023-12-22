@@ -6,7 +6,7 @@ import fs from 'node:fs';
 class ToolSharp extends Tool {
     /**
     * Constructs a new ToolSharp instance.
-    * @param {ToolSharpOptions} options - Configuration options for ToolSharp.
+    * @param {ToolOptions} options - Configuration options for ToolSharp.
     */
     constructor(options, pathIn, pathOut) {
         super(options, pathIn, pathOut);
@@ -56,16 +56,6 @@ class ToolSharp extends Tool {
 
 export default ToolSharp;
 
-
-/**
- * @typedef {Object} ToolSharpOptions
- * @property {import('sharp').SharpOptions} [settings] - Options to configure the options of sharp class.
- * @property {'jpg'|'jpeg'|'png'|'webp'|'tiff'|'gif'|'avif'|'heif'|'svg'} [ext] - Options to set the output extension of file.
- * @property {number} [scale] - Options to configure the scale of image.
- * @property {['jpg', 'jpeg', 'png', 'webp', 'tiff', 'gif', 'avif', 'heif', 'svg']} [exts] - Options to configure extensions.
- * @property {ToolSharpOptions} [api] - Options to configure sharp library features.
- */
-
 /**
  * @typedef {import('sharp').Matrix3x3} Matrix3x3
  * @typedef {import('sharp').Kernel} Kernel
@@ -80,6 +70,18 @@ export default ToolSharp;
  * @typedef {import('sharp').ThresholdOptions} ThresholdOptions
  * @typedef {import('sharp').Matrix2x2} Matrix2x2
  * @typedef {import('sharp').Raw} Raw
+ */
+
+/**
+ * @typedef {Object} ToolOptions
+ * @property {import('sharp').SharpOptions} [settings] - Options to configure the options of sharp class.
+ * @property {'jpg'|'jpeg'|'png'|'webp'|'tiff'|'gif'|'avif'|'heif'|'svg'} [ext] - Options to set the output extension of file.
+ * @property {number} [scale] - Options to configure the scale of image.
+ * @property {['jpg', 'jpeg', 'png', 'webp', 'tiff', 'gif', 'avif', 'heif', 'svg']} [exts] - Options to configure extensions.
+ * @property {ToolSharpOptions} [api] - Options to configure sharp library features.
+ */
+
+/**
  * @typedef ToolSharpOptions
  * @property {import('sharp').ResizeOptions} [resize] - Resize options.
  * @property {import('sharp').RotateOptions} [rotate] - Options for image rotation.
