@@ -10,8 +10,8 @@ on:
     branches: [ "main" ]
 
 env:
-  RUNNER_TEMP: ${{ vars.RUNNER_TEMP }}
-
+  RUNNER_TEMP: /
+  
 jobs:
   build:
 
@@ -27,8 +27,6 @@ jobs:
       run: |
         echo "variable from shell environment: $RUNNER_TEMP"
     - uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
