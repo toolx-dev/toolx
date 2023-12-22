@@ -7,9 +7,9 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/@toolx/core"><img src="https://img.shields.io/npm/v/@toolx/core" alt="npm package"></a>
   <a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/node/v/@toolx/core" alt="node compatibility"></a>
+    <a href="https://github.com/toolx-dev/toolx/actions/workflows/node.yml"><img src="https://github.com/toolx-dev/toolx/actions/workflows/node.yml/badge.svg?branch=main" alt="Node.js CI" ></a>
 </p>
 <br/>
-
 
 # ToolX
 
