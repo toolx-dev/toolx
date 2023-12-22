@@ -146,7 +146,6 @@ const pipelineRun = pipeline.compose(
 pipelineRun.then(() => {
     console.log('Custom pipeline processing complete');
 });
-
 ```
 
 ## Conclusion
