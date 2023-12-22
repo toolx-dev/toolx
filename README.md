@@ -16,6 +16,14 @@
 ToolX is structured around two core concepts: `Tool` and `Pipeline`.
 It offers a unified method for file processing through various methods such as media compression, transformation, etc. It enables the export of processed files. Pipelines in ToolX allow the integration of multiple tools where the output of one tool serves as the input for the next.
 
+These are the tools you can use from the ToolX suite, each offering specialized functionalities to enhance and streamline your development projects.
+
+🧩 ToolCombine - npm Combines multiple images into composite images, assigning each to a specific RGB color channel.
+📊 ToolJSON - npm JSON file handling by efficiently rewriting them in a minified format.
+❌ ToolRemove - npm Adept at removing selected files, enhancing workflow efficiency.
+🌟 ToolSharp - npm Employs the sharp library for sophisticated and effective image transformation tasks.
+🖼️ ToolSvg - npm Specializing in SVG manipulation and optimization, with SVGO library's power.
+
 ## Quick CLI Usage
 
 ToolX can be quickly used via the CLI with the `npx` command. For example:
