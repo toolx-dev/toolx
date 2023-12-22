@@ -122,12 +122,17 @@ import { Pipeline } from '@toolx/core';
 import ToolSharp from '@toolx/sharp';
 import ToolSvg from '@toolx/svg';
 
+// Prepare options for pipeline execution
+const executionOptions = {
+    // General options for the entire pipeline
+};
+
 // Initialize the pipeline with optional configurations
-const pipeline = new Pipeline();
+const pipeline = new Pipeline(executionOptions, inputPath, outputPath);
 
 // Compose the pipeline with desired tools
 // ToolSharp for image processing and ToolSvg for SVG optimization
-pipeline.compose(
+const pipelineRun = pipeline.compose(
     new ToolSharp({
         // ToolSharp specific options
     }),
@@ -136,13 +141,9 @@ pipeline.compose(
     })
 );
 
-// Prepare options for pipeline execution
-const executionOptions = {
-    // General options for the entire pipeline
-};
 
-// Execute the pipeline with input and output paths
-pipeline.run(executionOptions, inputPath, outputPath).then(() => {
+// Execute the pipeline
+pipelineRun.then(() => {
     console.log('Custom pipeline processing complete');
 });
 
