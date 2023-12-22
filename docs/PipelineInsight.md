@@ -19,19 +19,16 @@ import CustomToolOne from './CustomToolOne';
 import CustomToolTwo from './CustomToolTwo';
 
 // Creating a new pipeline instance
-const myPipeline = new Pipeline();
+const myPipeline = new Pipeline({ /* options */ }, 'path/to/input', 'path/to/output');
 
 // Adding tools to the pipeline
 myPipeline.compose(
     new CustomToolOne({ /* options */ }),
     new CustomToolTwo({ /* options */ })
-);
+)().then(() => {
+    console.log('Pipeline processing complete');
+});
 
-// Using the pipeline
-myPipeline.run({ /* options */ }, 'path/to/input', 'path/to/output')
-    .then(() => {
-        console.log('Pipeline processing complete');
-    });
 ```
 
 This example demonstrates the basic structure of a pipeline, integrating two custom tools. Each tool in the pipeline performs its task in the order they are added.
