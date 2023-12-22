@@ -107,17 +107,41 @@ declare class Tool extends Base {
      */
     onStart(pathIn: string | string[], pathOut: string, options: any): Promise<void>;
     /**
-     * Placeholder for handling every file.
-     * @param {function} resolveFile - Callback function to resolve the file processing.
-     * @param {object} data - Data related to file processing.
+     * onEveryFile
+     * @param {function} resolveFile - Callback function to proceed to the next file or operation.
+     * @param {Object} data - The parameter object containing details for file processing.
+     * @param {string} data.file - The current file being processed.
+     * @param {string} data.pathIn - The input path where the current file is located.
+     * @param {string} data.pathOut - The output path where the processed file will be stored.
+     * @param {string[]} data.files - An array of file paths that are being processed in the current operation.
+     * @param {*} data.options - Additional options or settings specific to the current processing task.
+     * @param {*} data.prev - The result or data from the previous file processed or the previous step in the pipeline.
+     * @param {number} data.index - The index of the current file in the array of files being processed.
      */
-    onEveryFile(resolveFile: Function, data: object): void;
+    onEveryFile(resolveFile: Function, data: {
+        file: string;
+        pathIn: string;
+        pathOut: string;
+        files: string[];
+        options: any;
+        prev: any;
+        index: number;
+    }): void;
     /**
-     * Placeholder for handling the body of files processing.
-     * @param {function} resolveFile - Callback function to resolve the file processing.
-     * @param {object} data - Data related to the files processing.
+     * onBody
+     * @param {function} resolveFile - Callback function to proceed to the next file or operation.
+     * @param {Object} data - The parameter object containing details for file processing.
+     * @param {string} data.pathIn - The input path where the current file is located.
+     * @param {string} data.pathOut - The output path where the processed file will be stored.
+     * @param {string[]} data.files - An array of file paths that are being processed in the current operation.
+     * @param {*} data.options - Additional options or settings specific to the current processing task.
      */
-    onBody(resolveFile: Function, data: object): void;
+    onBody(resolveFile: Function, data: {
+        pathIn: string;
+        pathOut: string;
+        files: string[];
+        options: any;
+    }): void;
 }
 import Base from "./Base.js";
 import Event from "./Event.js";
