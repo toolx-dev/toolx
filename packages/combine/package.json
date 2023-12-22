@@ -18,7 +18,7 @@
         "sharp": "^0.32.0"
     },
     "scripts": {
-        "test": "exit 0",
+        "test": "vitest run",
         "test:watch": "vitest"
     },
     "repository": {
