@@ -1,7 +1,7 @@
 {
     "name": "@toolx/imagemin",
     "version": "1.0.4",
-    "description": "",
+    "description": "It leverages the capabilities of the `imagemin` library to compress various image formats.",
     "main": "ToolImagemin.js",
     "source": "ToolImagemin.js",
     "bin": {
@@ -32,5 +32,13 @@
     "bugs": {
         "url": "https://github.com/williammanco/toolx/issues"
     },
-    "homepage": "https://github.com/williammanco/toolx#readme"
+    "homepage": "https://github.com/williammanco/toolx#readme",
+    "keywords": [
+        "ToolX",
+        "tool",
+        "imagemin",
+        "minify",
+        "compression",
+        "image"
+      ]
 }

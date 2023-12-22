@@ -27,7 +27,7 @@ class ToolImagemin extends Tool {
      * @param {*} param.prev - The result or data from the previous file processed or the previous step in the pipeline.
      * @param {number} param.index - The index of the current file in the array of files being processed.
      */
-    async onEveryFile(next, { file, options }) {
+    async onEveryFile(next, { file, pathIn, options }) {
         await imagemin([file], {
             destination: pathIn,
             plugins: [
