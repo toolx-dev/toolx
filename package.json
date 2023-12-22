@@ -28,5 +28,8 @@
         "@types/node": "^18.11.9",
         "eslint": "^8.30.0",
         "vitest": "^1.0.4"
+    },
+    "dependencies": {
+        "workspaces": "^0.1.0"
     }
 }
