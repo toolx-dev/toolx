@@ -20,7 +20,7 @@ describe('Tool class', () => {
     });
 
     it('should check if create dir and path exists', async () => {
-        const tempDirPath = path.join(os.tmpdir(), `toolTest`);
+        const tempDirPath = path.join(process.env.RUNNER_TEMP || os.tmpdir(), `toolTest`);
         await Tool.createDir(tempDirPath);
         const dirExists = await Tool.exist(tempDirPath)
         expect(dirExists).toBe(true);
@@ -31,7 +31,7 @@ describe('Tool class', () => {
     });
 
     it('should create a directory if it does not exist', async () => {
-        const tempDirPath = path.join(os.tmpdir(), `toolTestNoExist`);
+        const tempDirPath = path.join(process.env.RUNNER_TEMP || os.tmpdir(), `toolTestNoExist`);
         const dirExists = await Tool.exist(tempDirPath)
         expect(dirExists).toBe(false);
     });
@@ -45,7 +45,7 @@ describe('Tool class', () => {
     });
 
     it('should remove specified files', async () => {
-        const tempDirPath = path.join(os.tmpdir(), `toolTest`);
+        const tempDirPath = path.join(process.env.RUNNER_TEMP || os.tmpdir(), `toolTest`);
         await Tool.createDir(tempDirPath);
         const tempFilePath1 = path.join(tempDirPath, 'temp1.txt');
         const tempFilePath2 = path.join(tempDirPath, 'temp2.txt');
@@ -66,7 +66,7 @@ describe('Tool class', () => {
     //TODO: check this test
     //it('should remove a directory and its contents', async () => {
 
-    // const tempDirPath = path.join(os.tmpdir(), `toolTestRemoveDir`);
+    // const tempDirPath = path.join(process.env.RUNNER_TEMP || os.tmpdir(), `toolTestRemoveDir`);
     // await Tool.createDir(tempDirPath);
 
     // const tempFilePath = path.join(tempDirPath, 'temp.txt');
@@ -79,7 +79,7 @@ describe('Tool class', () => {
     //});
 
     it('should run the tool logic', async () => {
-        const tempDir = path.join(os.tmpdir(), `Tool`);
+        const tempDir = path.join(process.env.RUNNER_TEMP || os.tmpdir(), `Tool`);
         const tempDirPathOut = path.join(tempDir, `out`);
 
         const tempFilePath = path.join(tempDir, 'temp.txt');
@@ -99,7 +99,7 @@ describe('Tool class', () => {
     });
 
     it('should run the tool logic with arguments on constructor', async () => {
-        const tempDir = path.join(os.tmpdir(), `Tool`);
+        const tempDir = path.join(process.env.RUNNER_TEMP || os.tmpdir(), `Tool`);
         const tempDirPathOut = path.join(tempDir, `out`);
 
         const tempFilePath = path.join(tempDir, 'temp.txt');
