@@ -1,6 +1,6 @@
 {
     "name": "@toolx/svg",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "ToolSvg is used for SVG file optimization. It leverages the SVGO library for this purpose.",
     "main": "ToolSvg.js",
     "source": "ToolSvg.js",
@@ -14,7 +14,7 @@
     "type": "module",
     "sideEffects": false,
     "dependencies": {
-        "@toolx/core": "^1.1.3",
+        "@toolx/core": "^1.1.4",
         "svgo": "^3.0.2"
     },
     "scripts": {
