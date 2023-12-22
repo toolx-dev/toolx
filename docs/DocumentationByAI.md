@@ -161,7 +161,6 @@ Classic ChatGPT can be used for a wide range of documentation tasks. Here’s ho
 
 2. **Write the Prompt**: Clearly articulate your documentation needs. For example, if you’re documenting a Tool, your prompt might look like this:
 
-    ```markdown
 write downloadable documentation in md format of this tool ToolDemo.js
 [description] is a specialized component of the ToolX library, focused on SVG file manipulation and optimization, use svgo external library https://github.com/svg/svgo.
 
@@ -189,7 +188,6 @@ export type ToolSettings = {
      */
     transformPrecision?: number;
 };
-    ```
 
 3. **Refine and Expand**: Based on the initial output, you can ask ChatGPT to refine specific sections or add additional details.
 
