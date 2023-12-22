@@ -22,7 +22,8 @@
         "packages/svg",
         "packages/sharp",
         "packages/combine",
-        "packages/remove"
+        "packages/remove",
+        "packages/imagemin"
     ],
     "devDependencies": {
         "@types/node": "^18.11.9",
