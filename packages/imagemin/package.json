@@ -1,6 +1,6 @@
 {
     "name": "@toolx/imagemin",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "It leverages the capabilities of the `imagemin` library to compress various image formats.",
     "main": "ToolImagemin.js",
     "source": "ToolImagemin.js",
@@ -40,5 +40,5 @@
         "minify",
         "compression",
         "image"
-      ]
+    ]
 }

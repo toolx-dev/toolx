@@ -93,7 +93,12 @@ const templatePackage = (name, version) => /* json */`{
     "bugs": {
         "url": "https://github.com/williammanco/toolx/issues"
     },
-    "homepage": "https://github.com/williammanco/toolx#readme"
+    "homepage": "https://github.com/williammanco/toolx#readme",
+    "keywords": [
+        "ToolX",
+        "tool",
+        "${name}"
+      ]
 }
 `;
 
