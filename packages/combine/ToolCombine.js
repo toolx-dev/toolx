@@ -12,6 +12,13 @@ class ToolCombine extends Tool {
 
     groups = []
 
+    /**
+     * combineImages
+     * @param {string} image1 
+     * @param {string} image2 
+     * @param {string} image3 
+     * @returns {[Buffer, { width: number, height: number, channels: number }];}
+     */
     async combineImages(image1, image2, image3) {
         // Use the metadata from the first image to define width, height, and channels
         const { width, height } = await sharp(image1).metadata();
@@ -47,14 +54,33 @@ class ToolCombine extends Tool {
         return [combinedBuffer, { width, height, channels: 3 }];
     }
 
-
-
+    /**
+     * onEveryFile
+     * @param {function} next - Callback function to proceed to the next file or operation.
+     * @param {Object} param - The parameter object containing details for file processing.
+     * @param {string} param.file - The current file being processed.
+     * @param {string} param.pathIn - The input path where the current file is located.
+     * @param {string} param.pathOut - The output path where the processed file will be stored.
+     * @param {string[]} param.files - An array of file paths that are being processed in the current operation.
+     * @param {*} param.options - Additional options or settings specific to the current processing task.
+     * @param {*} param.prev - The result or data from the previous file processed or the previous step in the pipeline.
+     * @param {number} param.index - The index of the current file in the array of files being processed.
+     */
     async onEveryFile(next, { file }) {
         this.fileCollector.push(file)
 
         next(file);
     }
 
+    /**
+     * onBody
+     * @param {function} next - Callback function to proceed to the next file or operation.
+     * @param {Object} param - The parameter object containing details for file processing.
+     * @param {string} param.pathIn - The input path where the current file is located.
+     * @param {string} param.pathOut - The output path where the processed file will be stored.
+     * @param {string[]} param.files - An array of file paths that are being processed in the current operation.
+     * @param {*} param.options - Additional options or settings specific to the current processing task.
+     */
     async onBody(next, { files, ...props }) {
         for (let i = 0; i < this.fileCollector.length; i += 3) {
             this.groups.push(this.fileCollector.slice(i, i + 3));
@@ -63,18 +89,18 @@ class ToolCombine extends Tool {
         const buffers = await Promise.all(this.groups.map(async (group, i) => {
             if (group.length < 2) Promise.resolve();
             const [combinedBuffer, info] = await this.combineImages(...group);
-            return { combinedBuffer, width: info.width, height: info.height, channels: info.channels, ext: path.extname(group[0]), filename: group.map(e => path.basename(e.replace(path.extname(e), ''))).join('__') }
+            return { combinedBuffer, width: info.width, height: info.height, channels: info.channels, ext: path.extname(group[0]), dirname: path.dirname(group[0]), filename: group.map(e => path.basename(e.replace(path.extname(e), ''))).join('__') }
         }))
 
         await Promise.all(files.map((file) => Tool.removeDir(file)))
 
-        await Promise.all(buffers.map(async ({ combinedBuffer, width, height, channels, ext, filename }) => {
-            await sharp(combinedBuffer, { raw: { width, height, channels } }).toFile(path.resolve(props.pathIn, filename + ext));
+        await Promise.all(buffers.map(async ({ combinedBuffer, width, height, channels, dirname, ext, filename }) => {
+            await sharp(combinedBuffer, { raw: { width, height, channels } }).toFile(path.resolve(dirname, filename + ext));
         }))
 
         this.fileCollector = [];
 
-        super.onBody(next, { files, ...props });
+        next(files)
     }
 }
 
