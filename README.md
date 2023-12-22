@@ -72,7 +72,7 @@ For more information, visit the ToolX GitHub project page: [ToolX on GitHub](htt
 
 ## Overview
 
-This documentation provides an overview of how to use ToolX's `Tool` and `Pipeline` components effectively.
+This section provides an overview of how to use ToolX's `Tool` and `Pipeline` components effectively.
 
 
 - **Tool**: Represents an individual utility focused on a specific task, such as file transformation, data processing, etc.
