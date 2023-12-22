@@ -1,8 +1,62 @@
-# Contributing to ToolX
+# Contributing to ToolX Library
 
-Contributing to the ToolX library involves understanding the versioning conventions used within the monorepo. These conventions are crucial for maintaining consistency, compatibility, and clarity across all packages.
+Contributing to the ToolX library involves creating useful tools or wrappers around other libraries to facilitate their use with other tools. Here's a step-by-step guide to contribute effectively.
+
+## Step 1: Create a Tool Placeholder
+
+Use the script to create a placeholder for your tool:
+
+```bash
+npm run create <nameoftool>
+```
+
+This command does more than just create a file placeholder. It adds references to other files like `package.json` and `tsconfig.json`.
+
+## Step 2: Write Your Tool
+
+After running the script, a folder is created in the `packages` directory, e.g., `demo` for a tool named "Demo". Begin by editing `ToolDemo.js` inside `/packages/demo/ToolDemo.js`.
+
+Key functions to use are `onEveryFile` and `onBody`. More information can be found in the documentation: [TheTool.md](https://github.com/toolx-dev/toolx/blob/main/docs/TheTool.md).
+
+## Step 3: Document with JSDoc
+
+Use JSDoc to write types. Focus on the `options` as they tend to be unique for each tool. This helps in automatically creating options for other platforms like apps and sites. Run:
+
+```bash
+npm run types
+```
+
+For more on why `.ts` files are not used, see: [WhyNoTypescript.md](https://github.com/toolx-dev/toolx/blob/main/docs/WhyNoTypescript.md).
+
+## Step 4: Write Tests
+
+Write tests for your tool as it will be tested on different platforms through GitHub actions. Run the tests with:
+
+```bash
+npm run test
+```
+
+## Step 5: Write a README
+
+Create a `README.md` file for your tool. You can use ChatGPT to assist with this. Guidelines for writing it can be found here: [DocumentationByAI.md](https://github.com/toolx-dev/toolx/blob/main/docs/DocumentationByAI.md).
+
+## Step 6: Commit, Push, and Publish
+
+After testing and writing documentation, commit and push your tool. Use the `version` script to tag and bump the version, which is crucial for managing version and core dependencies:
+
+```bash
+npm run version
+```
+
+Once everything is pushed, you can test and publish it if you have the necessary permissions.
+
+## Note on Changes and Versioning
+
+If you need to make changes to your tool, other tools, or the core, follow the guideline on versioning.
 
 ## Versioning Guidelines
+Contributing to the ToolX library involves understanding the versioning conventions used within the monorepo. These conventions are crucial for maintaining consistency, compatibility, and clarity across all packages.
+
 
 ### Patch Updates
 
