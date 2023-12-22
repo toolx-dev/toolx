@@ -18,11 +18,17 @@ It offers a unified method for file processing through various methods such as m
 
 These are the tools you can use from the ToolX suite, each offering specialized functionalities to enhance and streamline your development projects.
 
-🧩 ToolCombine - npm Combines multiple images into composite images, assigning each to a specific RGB color channel.
-📊 ToolJSON - npm JSON file handling by efficiently rewriting them in a minified format.
-❌ ToolRemove - npm Adept at removing selected files, enhancing workflow efficiency.
-🌟 ToolSharp - npm Employs the sharp library for sophisticated and effective image transformation tasks.
-🖼️ ToolSvg - npm Specializing in SVG manipulation and optimization, with SVGO library's power.
+- 🧩 [ToolCombine](https://github.com/toolx-dev/toolx/tree/main/packages/combine) - [npm](https://www.npmjs.com/package/@toolx/combine)
+Combines multiple images into composite images, assigning each to a specific RGB color channel.
+- 📊 [ToolJSON](https://github.com/toolx-dev/toolx/tree/main/packages/json) - [npm](https://www.npmjs.com/package/@toolx/json)
+JSON file handling by efficiently rewriting them in a minified format.
+- ❌ [ToolRemove](https://github.com/toolx-dev/toolx/tree/main/packages/remove) - [npm](https://www.npmjs.com/package/@toolx/remove)
+Adept at removing selected files, enhancing workflow efficiency.
+- 🌟 [ToolSharp](https://github.com/toolx-dev/toolx/tree/main/packages/sharp) - [npm](https://www.npmjs.com/package/@toolx/sharp)
+Employs the sharp library for sophisticated and effective image transformation tasks.
+- 🖼️ [ToolSvg](https://github.com/toolx-dev/toolx/tree/main/packages/svg) - [npm](https://www.npmjs.com/package/@toolx/svg)
+Specializing in SVG manipulation and optimization, with SVGO library's power.
+
 
 ## Quick CLI Usage
 
