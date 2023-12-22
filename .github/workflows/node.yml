@@ -26,8 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Set RUNNER_TEMP environment variable
-      run: echo "RUNNER_TEMP=${{ runner.temp }}" >> $GITHUB_ENV
     - name: Install dependencies
       run: npm ci
     - name: Run build if present
