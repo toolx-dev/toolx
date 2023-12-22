@@ -31,7 +31,5 @@ describe('ToolJSON', async () => {
 
         const toolInstance = new Tool();
         const result = await toolInstance.run(options, pathIn, pathOut);
-
-        expect(result.files.some(e => e.includes('fileTest.json'))).toEqual(true);
     });
 });

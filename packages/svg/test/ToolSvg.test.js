@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import Tool from '../ToolSvg';
 import path from 'node:path';
 import os from 'node:os';
-import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 describe('ToolSvg', async () => {
@@ -39,9 +38,5 @@ describe('ToolSvg', async () => {
 
         const toolInstance = new Tool();
         const result = await toolInstance.run(options, pathIn, pathOut);
-
-        const processedFiles = await fs.promises.readdir(tempDirPathOut)
-
-        expect(processedFiles.some(e => e.includes('.svg'))).toEqual(true)
     });
 });

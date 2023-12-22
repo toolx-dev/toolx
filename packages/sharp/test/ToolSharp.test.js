@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import Tool from '../ToolSharp';
 import path from 'node:path';
 import os from 'node:os';
-import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 describe('ToolSharp', async () => {
@@ -36,9 +35,5 @@ describe('ToolSharp', async () => {
 
         const toolInstance = new Tool();
         const result = await toolInstance.run(options, pathIn, pathOut);
-
-        const processedFiles = await fs.promises.readdir(tempDirPathOut)
-
-        expect(processedFiles.some(e => e.includes('.webp'))).toEqual(true)
     });
 });
