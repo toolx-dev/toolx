@@ -82,6 +82,7 @@ describe('Tool class', () => {
     it('should run the tool logic', async () => {
         if (process.env.RUNNER_TEMP) return; // TODO: check this test on github actions
         const tempDir = path.join(process.env.RUNNER_TEMP || os.tmpdir(), `Tool`);
+        await Tool.createDir(tempDir);
         const tempDirPathOut = path.join(tempDir, `out`);
 
         const tempFilePath = path.join(tempDir, 'temp.txt');
@@ -94,10 +95,9 @@ describe('Tool class', () => {
         const toolInstance = new Tool();
         const result = await toolInstance.run(options, pathIn, pathOut);
 
-        // TODO: check this test
-        // expect(result.files).toEqual([
-        //     `${tempDir}/toolTest_out/temp.txt`
-        // ]);
+        expect(result.files).toEqual([
+            `${tempDir}/out/temp.txt`
+        ]);
     });
 
     it('should run the tool logic with arguments on constructor', async () => {
