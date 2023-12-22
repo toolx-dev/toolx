@@ -121,6 +121,8 @@ class Tool extends Base {
         pathIn = pathIn || this._pathIn;
         pathOut = pathOut || this._pathOut;
 
+        const _glob = glob.generateTasks(pathIn, { objectMode: true })[0];
+
         // Convert input path(s) to a flat array
         const _pathIn = Array(pathIn).flat();
 
@@ -134,7 +136,7 @@ class Tool extends Base {
         if (!this.opts?.noTempCopy) await Tool.createDir(pathOut);
 
         // Copy files from input paths to the temporary path
-        const filesPath = await this.copyFiles(_pathIn, pathTemp);
+        const filesPath = await this.copyFiles(!_glob.dynamic ? _pathIn + '/**/*' : _pathIn, pathTemp);
 
         // Check if the first input path starts with the temporary directory and remove it if necessary
         if (this.isTempFolder(_pathIn[0])) await Tool.removeDir(_pathIn[0]);
