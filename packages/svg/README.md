@@ -16,6 +16,9 @@ The `settings` option allows customization of various SVG optimization parameter
 
 - `floatPrecision`: Control the precision of floating point numbers.
 - `transformPrecision`: Control the precision of transformation expressions.
+
+### `options` {#options}
+
 - `multipass`: Enable or disable multiple optimization passes.
 
 ## Usage
@@ -27,10 +30,10 @@ import ToolSvg from '@toolx/svg';
 
 // Example usage
 const toolSvg = new ToolSvg({
+    multipass: true,
     settings: {
         floatPrecision: 5,
         transformPrecision: 5,
-        multipass: true,
         // Other svgo settings
     }
 });
@@ -46,15 +49,17 @@ toolSvg.run(options, inputFile, outputFile).then(() => {
 ```js
 import { Pipeline } from '@toolx/core';
 import ToolSvg from '@toolx/svg';
+import ToolOther from '@toolx/other'; // Example of another tool
 
 // Setting up the pipeline
 const pipeline = new Pipeline();
 pipeline.compose(
+    new ToolOther(/* ToolOther options */),
     new ToolSvg({
+        multipass: true,
         settings: {
             floatPrecision: 3,
             transformPrecision: 3,
-            multipass: true,
             // Other svgo settings
         }
     })
