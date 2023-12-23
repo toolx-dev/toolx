@@ -1,15 +1,12 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import Tool from '../ToolJSON';
 import path from 'node:path';
-import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 describe('ToolJSON', async () => {
     let toolInstance;
 
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-    await Tool.removeDir(path.join(os.tmpdir(), `ToolJSON`));
 
     beforeEach(async () => {
         toolInstance = new Tool();
@@ -20,16 +17,17 @@ describe('ToolJSON', async () => {
     });
 
     it('should run the tool logic', async () => {
-        const tempDir = path.join(os.tmpdir(), `ToolJSON`);
-        const tempDirPathOut = path.join(tempDir, `out`);
+        const tempFilePath = [`${__dirname}/assets/fileTest_*.json`, `${__dirname}/assets/fileTest_2.json`];
+        const tempDirPathOut = `${__dirname}/assets/out`;
 
-        const tempFilePath = `${__dirname}/assets/fileTest.json`;
-
-        const options = {};
-        const pathIn = tempFilePath;
-        const pathOut = tempDirPathOut;
+        await Tool.removeDir(tempDirPathOut);
+        await Tool.createDir(tempDirPathOut);
 
         const toolInstance = new Tool();
-        const result = await toolInstance.run(options, pathIn, pathOut);
+        const result = await toolInstance.run({}, tempFilePath, tempDirPathOut);
+        expect(result.files).toEqual([
+            `${__dirname}/assets/out/fileTest_1.json`,
+            `${__dirname}/assets/out/fileTest_2.json`
+        ]);
     });
 });
