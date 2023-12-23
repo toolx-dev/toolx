@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterAll } from 'vitest';
 import Tool from '../ToolSharp';
 import path from 'node:path';
 import os from 'node:os';

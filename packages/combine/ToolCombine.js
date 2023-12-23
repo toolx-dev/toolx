@@ -2,6 +2,7 @@
 import Tool from '@toolx/core/Tool.server.js';
 import sharp from 'sharp';
 import path from 'node:path';
+import { exec } from 'node:child_process';
 
 class ToolCombine extends Tool {
     options = {

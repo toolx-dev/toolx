@@ -121,13 +121,12 @@ class Tool extends Base {
         pathIn = pathIn || this._pathIn;
         pathOut = pathOut || this._pathOut;
 
-        const _glob = glob.generateTasks(pathIn, { objectMode: true })[0];
-
         // Convert input path(s) to a flat array
-        const _pathIn = Array(pathIn).flat();
+        let _pathIn = Array(pathIn).flat();
 
         // Generate a temporary path using os.tmpdir() and a unique identifier
-        const pathTemp = path.join(os.tmpdir(), `toolx_${this.getUID()}`);
+        this._tempDir = os.tmpdir();
+        const pathTemp = path.join(this._tempDir, `toolx_${this.getUID()}`);
 
         // Create a temporary directory if it doesn't exist
         await Tool.createDir(pathTemp);
@@ -136,7 +135,15 @@ class Tool extends Base {
         if (!this.opts?.noTempCopy) await Tool.createDir(pathOut);
 
         // Copy files from input paths to the temporary path
-        const filesPath = await this.copyFiles(!_glob.dynamic ? _pathIn + '/**/*' : _pathIn, pathTemp);
+        _pathIn = _pathIn.map((p) => {
+            const _glob = glob.generateTasks(p, { objectMode: true })[0];
+            if (!_glob.dynamic) {
+                const stat = fs.lstatSync(p);
+                if (stat.isDirectory()) return `${p}/**/*`;
+            }
+            return p;
+        });
+        const filesPath = await this.copyFiles(_pathIn, pathTemp);
 
         // Check if the first input path starts with the temporary directory and remove it if necessary
         if (this.isTempFolder(_pathIn[0])) await Tool.removeDir(_pathIn[0]);
@@ -295,8 +302,9 @@ class Tool extends Base {
                 globstar: true,
                 markDirectories: true
             });
-
-            this.opts.basePathIn = _glob.base;
+            
+            const _pathIn = _glob.base;
+            this.opts.basePathIn = _pathIn;
 
             if (files.length === 0) {
                 return Promise.resolve([]);
@@ -307,8 +315,7 @@ class Tool extends Base {
             }
 
             const copyPromises = Promise.all(files.map((pathFile) => {
-                let pathFileOut = pathFile.replace(_glob.base, pathOut);
-
+                let pathFileOut = pathFile.replace(_pathIn, pathOut);
                 if (onCopy) onCopy(pathFileOut)
                 return fs.promises.cp(pathFile, pathFileOut, { recursive: false }).then(() => pathFileOut);
             }))
@@ -326,7 +333,7 @@ class Tool extends Base {
      * @returns {boolean} - Returns true if the path is within a temporary folder, otherwise false.
      */
     isTempFolder(pathIn) {
-        return pathIn.startsWith(os.tmpdir())
+        return pathIn.startsWith(this._tempDir)
     }
 
     /**

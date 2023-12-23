@@ -47,7 +47,9 @@ describe('Tool class', () => {
 
     it('should remove specified files', async () => {
         const tempDirPath = path.join(process.env.RUNNER_TEMP || os.tmpdir(), `toolTest`);
+        await Tool.removeDir(tempDirPath);
         await Tool.createDir(tempDirPath);
+
         const tempFilePath1 = path.join(tempDirPath, 'temp1.txt');
         const tempFilePath2 = path.join(tempDirPath, 'temp2.txt');
         await fs.writeFile(tempFilePath1, 'Hello, World!', 'utf8');
@@ -81,8 +83,11 @@ describe('Tool class', () => {
 
     it('should run the tool logic', async () => {
         if (process.env.RUNNER_TEMP) return; // TODO: check this test on github actions
-        const tempDir = path.join(process.env.RUNNER_TEMP || os.tmpdir(), `Tool`);
+        const tempDir = path.join(os.tmpdir(), `Tool`);
         const tempDirPathOut = path.join(tempDir, `out`);
+
+        await Tool.removeDir(tempDir);
+        await Tool.createDir(tempDir);
 
         const tempFilePath = path.join(tempDir, 'temp.txt');
         await fs.writeFile(tempFilePath, 'Hello, World!');
@@ -91,19 +96,21 @@ describe('Tool class', () => {
         const pathIn = tempFilePath;
         const pathOut = tempDirPathOut;
 
-        const toolInstance = new Tool();
-        const result = await toolInstance.run(options, pathIn, pathOut);
+        const toolInstance = new Tool(options, path.join(tempDir, '**/*'), pathOut);
+        const result = await toolInstance.run();
 
-        // TODO: check this test
-        // expect(result.files).toEqual([
-        //     `${tempDir}/toolTest_out/temp.txt`
-        // ]);
+        expect(result.files).toEqual([
+            `${tempDirPathOut}/temp.txt`
+        ]);
     });
 
     it('should run the tool logic with arguments on constructor', async () => {
-        if (process.env.RUNNER_TEMP) return; // TODO: check this test on github actions
-        const tempDir = path.join(process.env.RUNNER_TEMP || os.tmpdir(), `Tool`);
+        if (process.env.RUNNER_TEMP) return; // TODO: check this test on github actions 
+        const tempDir = path.join(os.tmpdir(), `Tool`);
         const tempDirPathOut = path.join(tempDir, `out`);
+
+        await Tool.removeDir(tempDir);
+        await Tool.createDir(tempDir);
 
         const tempFilePath = path.join(tempDir, 'temp.txt');
         await fs.writeFile(tempFilePath, 'Hello, World!');
@@ -111,7 +118,7 @@ describe('Tool class', () => {
         const pathIn = tempFilePath;
         const pathOut = tempDirPathOut;
 
-        const toolInstance = new Tool({ export: false, pathIn, pathOut }, pathIn, pathOut);
+        const toolInstance = new Tool({ export: false }, path.join(tempDir, '**/*'), pathOut);
         const result = await toolInstance.run();
 
         expect(result.options.export).toEqual(false);
