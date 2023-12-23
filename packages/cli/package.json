@@ -1,6 +1,6 @@
 {
     "name": "@toolx/cli",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "",
     "main": "cli.js",
     "source": "cli.js",
@@ -20,7 +20,7 @@
         "mustargs": "^1.0.7",
         "@inquirer/confirm": "^2.0.15",
         "@inquirer/prompts": "^3.3.0",
-        "@toolx/core": "^1.1.4"
+        "@toolx/core": "^1.1.5"
     },
     "repository": {
         "type": "git",
