@@ -59,9 +59,7 @@ const getArgsFromCLI = () => {
 
     const pathIn = args.pathIn || args.i || process.cwd() + '/**/*';
 
-    const { base } = glob.generateTasks(pathIn, { objectMode: true })[0];
-
-    const pathOut = args.pathOut || args.o || base + '/';
+    const pathOut = args.pathOut || args.o || process.cwd();
     const options = args.options || args.opts || args.s || {};
 
     return { ...args, options, pathIn, pathOut }
