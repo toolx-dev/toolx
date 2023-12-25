@@ -46,7 +46,7 @@ class Tool extends Base {
      */
     static async createDir(dirPath) {
         const exist = await Tool.exist(dirPath);
-        if (!exist) return !!fs.promises.mkdir(dirPath, { recursive: true });
+        if (!exist) return fs.promises.mkdir(dirPath, { recursive: true });
         return Promise.resolve(null);
     }
 
