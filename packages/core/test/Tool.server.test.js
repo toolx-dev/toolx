@@ -1,15 +1,25 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterAll, } from 'vitest';
 import Tool from '../Tool.server';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 
+
 describe('Tool class', () => {
+    const tempDirPath = path.join(process.env.RUNNER_TEMP || os.tmpdir(), "Toolx", path.basename(__filename).replace(".js", ""));
     let toolInstance;
-    const tmpDir = os.tmpdir();
 
     beforeEach(async () => {
         toolInstance = new Tool();
+        if (await Tool.exist(tempDirPath)) {
+            await Tool.removeDir(tempDirPath);
+        }
+    });
+
+    afterAll(async () => {
+        if (await Tool.exist(tempDirPath)) {
+            await Tool.removeDir(tempDirPath);
+        }
     });
 
     it('should create an instance of Tool', () => {
@@ -22,7 +32,6 @@ describe('Tool class', () => {
 
     it('should check if create dir and path exists', async () => {
         if (process.env.RUNNER_TEMP) return; // TODO: check this test on github actions
-        const tempDirPath = path.join(process.env.RUNNER_TEMP || tmpDir, `toolTest`);
         await Tool.createDir(tempDirPath);
         const dirExists = await Tool.exist(tempDirPath)
         expect(dirExists).toBe(true);
@@ -33,9 +42,12 @@ describe('Tool class', () => {
     });
 
     it('should create a directory if it does not exist', async () => {
-        const tempDirPath = path.join(process.env.RUNNER_TEMP || tmpDir, `toolTestNoExist`);
-        const dirExists = await Tool.exist(tempDirPath)
+        let dirExists = await Tool.exist(tempDirPath)
         expect(dirExists).toBe(false);
+
+        await Tool.createDir(tempDirPath);
+        dirExists = await Tool.exist(tempDirPath)
+        expect(dirExists).toBe(true);
     });
 
     it('should change the file extension', () => {
@@ -47,11 +59,7 @@ describe('Tool class', () => {
     });
 
     it('should remove specified files', async () => {
-        return;
-        const tempDirPath = path.join(process.env.RUNNER_TEMP || tmpDir, `toolTest`);
-        await Tool.removeDir(tempDirPath);
         await Tool.createDir(tempDirPath);
-
         const tempFilePath1 = path.join(tempDirPath, 'temp1.txt');
         const tempFilePath2 = path.join(tempDirPath, 'temp2.txt');
         await fs.writeFile(tempFilePath1, 'Hello, World!', 'utf8');
@@ -84,9 +92,8 @@ describe('Tool class', () => {
     //});
 
     it('should run the tool logic', async () => {
-        return;
         if (process.env.RUNNER_TEMP) return; // TODO: check this test on github actions
-        const tempDir = path.join(tmpDir, `Tool`);
+        const tempDir = tempDirPath
         const tempDirPathOut = path.join(tempDir, `out`);
 
         await Tool.removeDir(tempDir);
@@ -108,9 +115,8 @@ describe('Tool class', () => {
     });
 
     it('should run the tool logic with arguments on constructor', async () => {
-        return;
         if (process.env.RUNNER_TEMP) return; // TODO: check this test on github actions 
-        const tempDir = path.join(tmpDir, `Tool`);
+        const tempDir = tempDirPath
         const tempDirPathOut = path.join(tempDir, `Tool`, `out`);
 
         await Tool.removeDir(tempDir);
