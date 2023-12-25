@@ -12,8 +12,8 @@
         "version": "node ./scripts/version.js",
         "types": "node ./scripts/types.js && npx -p typescript tsc --project tsconfig.json",
         "publish": "npm publish --workspaces",
-        "test": "npm rebuild && vitest run --fileParallelism=false",
-        "test:watch": "npm rebuild && vitest --fileParallelism=false"
+        "test": "npm rebuild && vitest run",
+        "test:watch": "npm rebuild && vitest"
     },
     "workspaces": [
         "packages/cli",
