@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import Tool from '../ToolJSON';
 import path from 'node:path';
+import os from 'node:os'
 import { fileURLToPath } from 'node:url';
 
 describe('ToolJSON', async () => {
@@ -29,8 +30,8 @@ describe('ToolJSON', async () => {
         const toolInstance = new Tool();
         const result = await toolInstance.run({}, tempFilePath, tempDirPathOut);
         expect(result.files).toEqual([
-            `${__dirname}/assets/out/fileTest_1.json`,
-            `${__dirname}/assets/out/fileTest_2.json`
+            `${tempDirPathOut}/fileTest_1.json`,
+            `${tempDirPathOut}/fileTest_2.json`
         ]);
     });
 });
