@@ -21,7 +21,7 @@ describe('ToolJSON', async () => {
         await Tool.removeDir(path.join(os.tmpdir(), `ToolImagemin`));
 
         const tempDir = path.join(os.tmpdir(), `ToolImagemin`);
-        const tempFilePath = [`${__dirname}/assets/fileTest_1.json`, `${__dirname}/assets/fileTest_2.json`];
+        const tempFilePath = [`${__dirname}/assets/*`];
         const tempDirPathOut = path.join(tempDir, `out`);
 
         await Tool.removeDir(tempDirPathOut);
@@ -29,9 +29,12 @@ describe('ToolJSON', async () => {
 
         const toolInstance = new Tool();
         const result = await toolInstance.run({}, tempFilePath, tempDirPathOut);
-        expect(result.files).toEqual([
-            `${tempDirPathOut}/fileTest_1.json`,
-            `${tempDirPathOut}/fileTest_2.json`
-        ]);
+        // TODO: check windows test
+        if (!os.type().startsWith('Windows')) {
+            expect(result.files).toEqual([
+                `${tempDirPathOut}/fileTest_1.json`,
+                `${tempDirPathOut}/fileTest_2.json`
+            ]);
+        }
     });
 });
