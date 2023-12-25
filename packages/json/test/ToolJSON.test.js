@@ -17,8 +17,11 @@ describe('ToolJSON', async () => {
     });
 
     it('should run the tool logic', async () => {
-        const tempFilePath = [`${__dirname}/assets/fileTest_*.json`, `${__dirname}/assets/fileTest_2.json`];
-        const tempDirPathOut = `${__dirname}/assets/out`;
+        await Tool.removeDir(path.join(os.tmpdir(), `ToolImagemin`));
+
+        const tempDir = path.join(os.tmpdir(), `ToolImagemin`);
+        const tempFilePath = [`${__dirname}/assets/fileTest_1.json`, `${__dirname}/assets/fileTest_2.json`];
+        const tempDirPathOut = path.join(tempDir, `out`);
 
         await Tool.removeDir(tempDirPathOut);
         await Tool.createDir(tempDirPathOut);
