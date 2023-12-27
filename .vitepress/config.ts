@@ -37,7 +37,7 @@ export default defineConfig({
   description: "Documentation",
   lastUpdated: true,
   cleanUrls: true,
-  base: '/dist/',
+  base: '/docs/',
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/toolx-logo.png' }],
     ['meta', { name: 'theme-color', content: '#5f67ee' }],

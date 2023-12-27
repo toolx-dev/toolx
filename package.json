@@ -15,8 +15,8 @@
     "test": "npm rebuild && vitest run",
     "test:watch": "npm rebuild && vitest",
     "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build --outDir docs/dist",
-    "docs:preview": "vitepress preview"
+    "docs:build": "vitepress build --outDir docs/docs",
+    "docs:preview": "vitepress build && vitepress preview"
   },
   "workspaces": [
     "packages/cli",
