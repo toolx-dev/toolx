@@ -1,35 +1,32 @@
-# ToolJSON
+# ToolJSON Documentation
 
-`ToolJSON.js` is an integral component of the ToolX library, primarily focused on handling and optimizing JSON files. Its main function, as of now, is to rewrite JSON files in a minified format, thereby reducing their size for more efficient storage and transfer. This tool is particularly effective when used within a pipeline, where it often serves as a final step to compress and minify all JSON files following processing by other tools. This makes it a vital asset in workflows where multiple JSON files are generated and need to be optimized for space.
+## Introduction
 
-:::note
-While ToolJSON.js currently excels in file native compression, plans are underway to expand its functionality. Future updates may introduce additional features to further enhance its utility in JSON file manipulation and processing.
+`ToolJSON` is a component of the ToolX library designed for the specific purpose of rewriting JSON files into a minified format. This tool is essential for reducing the size of JSON files, making them more efficient for storage and transfer.
+
+::: tip
+`ToolJSON` is particularly effective when used within a pipeline in the ToolX library. It's often used as a final step to compress and minify JSON files after they have been processed by other tools, ensuring optimized storage and transfer efficiency.
 :::
-
-## Functionality
-
-- **File Compression**: Compresses and minifies JSON files to reduce file size without altering their data structure or content.
 
 ## Usage
 
-### Importing ToolJSON
+### Direct Usage
+
+In a direct usage scenario, `ToolJSON` can be used to minify a single JSON file or multiple files sequentially. Here's a basic example of how it can be implemented:
 
 ```js
 import ToolJSON from '@toolx/json';
-```
 
-### Direct Usage
-
-```js
-const toolJson = new ToolJSON();
-
-// Example usage for compressing a JSON file
-toolJson.run(options, inputFilePath, outputFilePath).then(() => {
-    console.log('JSON file compression complete');
+// Example: Minifying a JSON file
+const toolJSON = new ToolJSON();
+toolJSON.minify('path/to/input.json', 'path/to/output.json').then(() => {
+    console.log('JSON file minified successfully');
 });
 ```
 
 ### Usage in Pipeline
+
+`ToolJSON` can also be effectively integrated into a pipeline with other ToolX tools. Here's an example of how `ToolJSON` can be used as the final step in a pipeline to minify JSON files:
 
 ```js
 import { Pipeline } from '@toolx/core';
@@ -40,15 +37,15 @@ import ToolOther from '@toolx/other'; // Example of another tool
 const pipeline = new Pipeline();
 pipeline.compose(
     new ToolOther(/* ToolOther options */),
-    new ToolJSON()
+    new ToolJSON() // Minify JSON as the final step
 );
 
-// Running the pipeline for JSON compression
-pipeline.run(options, inputFolderPath, outputFolderPath).then(() => {
-    console.log('JSON processing complete');
+// Running the pipeline
+pipeline.run(inputPath, outputPath).then(() => {
+    console.log('Pipeline execution complete, JSON minified');
 });
 ```
 
-## Options
+## Conclusion
 
-`ToolJSON` operates efficiently without the need for specific options, automatically handling the compression of JSON files.
+`ToolJSON` is a simple yet powerful tool in the ToolX library, designed to efficiently minify JSON files. Its integration into a pipeline makes it an indispensable tool for optimizing data storage and transfer in applications that handle JSON data.

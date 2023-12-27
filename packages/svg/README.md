@@ -1,4 +1,4 @@
-# ToolSvg
+# ToolSvg Documentation
 
 `ToolSvg.js` is a specialized component of the ToolX library, focused on SVG file manipulation and optimization. Leveraging the capabilities of the SVGO (SVG Optimizer) library, `ToolSvg.js` offers efficient and powerful means to process and optimize SVG files. This document details its functionalities, including how SVGO is utilized for SVG optimization, and provides usage examples both as a standalone tool and within a pipeline.
 
@@ -6,7 +6,7 @@
 The `ToolSvg` class integrates the SVGO library, a renowned tool for SVG optimization. SVGO employs a variety of optimization techniques to reduce the size of SVG files and improve their performance. The integration with SVGO in `ToolSvg` allows users to take advantage of these optimizations within the ToolX environment, enhancing the efficiency and effectiveness of SVG processing.
 :::
 
-## Options
+## Props
 
 The `ToolSvg` class accepts options to configure its behavior and the SVG optimization process. These options are passed to the `svgo` library.
 

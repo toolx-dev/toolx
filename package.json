@@ -1,36 +1,40 @@
 {
-    "name": "@toolx/core",
-    "author": "William Manco <wmanco88@gmail.com>",
-    "type": "module",
-    "engines": {
-        "npm": ">=8.3.1",
-        "node": ">=18.0.0"
-    },
-    "scripts": {
-        "remove": "node ./scripts/remove.js",
-        "create": "node ./scripts/create.js",
-        "version": "node ./scripts/version.js",
-        "types": "node ./scripts/types.js && npx -p typescript tsc --project tsconfig.json",
-        "publish": "npm publish --workspaces",
-        "test": "npm rebuild && vitest run",
-        "test:watch": "npm rebuild && vitest"
-    },
-    "workspaces": [
-        "packages/cli",
-        "packages/core",
-        "packages/json",
-        "packages/svg",
-        "packages/sharp",
-        "packages/combine",
-        "packages/remove",
-        "packages/imagemin"
-    ],
-    "devDependencies": {
-        "@types/node": "^18.11.9",
-        "eslint": "^8.30.0",
-        "vitest": "^1.0.4"
-    },
-    "dependencies": {
-        "workspaces": "^0.1.0"
-    }
+  "name": "@toolx/core",
+  "author": "William Manco <wmanco88@gmail.com>",
+  "type": "module",
+  "engines": {
+    "npm": ">=8.3.1",
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "remove": "node ./scripts/remove.js",
+    "create": "node ./scripts/create.js",
+    "version": "node ./scripts/version.js",
+    "types": "node ./scripts/types.js && npx -p typescript tsc --project tsconfig.json",
+    "publish": "npm publish --workspaces",
+    "test": "npm rebuild && vitest run",
+    "test:watch": "npm rebuild && vitest",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build --outDir docs/dist",
+    "docs:preview": "vitepress preview"
+  },
+  "workspaces": [
+    "packages/cli",
+    "packages/core",
+    "packages/json",
+    "packages/svg",
+    "packages/sharp",
+    "packages/combine",
+    "packages/remove",
+    "packages/imagemin"
+  ],
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "eslint": "^8.30.0",
+    "vitepress": "^1.0.0-rc.32",
+    "vitest": "^1.0.4"
+  },
+  "dependencies": {
+    "workspaces": "^0.1.0"
+  }
 }

@@ -1,12 +1,12 @@
-# ToolImagemin
+# ToolImagemin Documentation
 
 `ToolImagemin.js` is a part of the ToolX library, specifically designed for efficient image compression. It leverages the capabilities of the `imagemin` library to compress various image formats. This document outlines its functionalities, including options for compression and provides usage examples.
 
-:::info
+::: info
 This tool uses the `imagemin` library, which is a powerful and flexible image compression library. It supports a variety of image formats and provides extensive options for customization. For more details on `imagemin`, visit [imagemin on npm](https://www.npmjs.com/package/imagemin).
 :::
 
-## Options
+## Props
 
 `ToolImagemin` offers several options to customize the image compression process. These options allow for specific file extensions, inclusion and exclusion criteria, and detailed settings for JPG and PNG files.
 

@@ -1,4 +1,4 @@
-# ToolRemove
+# ToolRemove Documentation
 
 `ToolRemove.js` is a specialized component of the ToolX library, designed for file and directory removal operations.
 
