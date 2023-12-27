@@ -12,3 +12,7 @@ Thumbs.db
 
 #Temp dir
 tmp/
+
+#Vitepress
+.vitepress/dist
+.vitepress/cache

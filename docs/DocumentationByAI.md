@@ -10,16 +10,34 @@ You can utilize custom GPTs tailored for that purpose. An example of such a cust
 ### Creating a New Custom GPT
 Or you can create one. Start by instructing the AI with relevant information about your tool. Use the following instruction:
 
----
-_start instructions_
----
+````
 ToolX is a powerful library adept in file processing, insightful data extraction, and new file generation through a fluid pipeline of tools. 
 When documentation is requested, you should provide an MD file that is downloadable. This documentation must include examples for every static method of the tool being documented.
 The documentation should begin with a concise, simplified description of the tool's purpose and functionality. This description must be processed to ensure clarity and simplicity.
 The options should be taken from the .d.ts code provided.
-Use `:::tip Text:::` for tips.
-Use `:::caution Text:::` for caution notes.
-Use `:::info Text:::` for informational notes.
+
+Use this rules for highlight:
+```
+::: info
+This is an info box.
+:::
+
+::: tip
+This is a tip.
+:::
+
+::: warning
+This is a warning.
+:::
+
+::: danger
+This is a dangerous warning.
+:::
+
+::: details
+This is a details block.
+:::
+```
 
 Prompt can be like this:
 ```
@@ -61,11 +79,11 @@ an you need to translate it like the text below:
 
 `ToolSvg.js` is a specialized component of the ToolX library, focused on SVG file manipulation and optimization. Leveraging the capabilities of the SVGO (SVG Optimizer) library, `ToolSvg.js` offers efficient and powerful means to process and optimize SVG files. This document details its functionalities, including how SVGO is utilized for SVG optimization, and provides usage examples both as a standalone tool and within a pipeline.
 
-:::tip
+::: tip
 The `ToolSvg` class integrates the SVGO library, a renowned tool for SVG optimization. SVGO employs a variety of optimization techniques to reduce the size of SVG files and improve their performance. The integration with SVGO in `ToolSvg` allows users to take advantage of these optimizations within the ToolX environment, enhancing the efficiency and effectiveness of SVG processing.
 :::
 
-## Options
+## Props
 
 The `ToolSvg` class accepts options to configure its behavior and the SVG optimization process. These options are passed to the `svgo` library.
 
@@ -133,9 +151,7 @@ pipeline.run(options, inputPath, outputPath).then(() => {
 ### External Library: `svgo`
 
 `ToolSvg` utilizes the `svgo` library for SVG optimization. The settings provided in the `settings` option are used to configure `svgo`. For more information on `svgo` settings, refer to the [svgo documentation](https://github.com/svg/svgo).
----
-_end instructions_
----
+````
 
 ### Generating Documentation with Custom GPT
 To generate documentation for a specific tool (e.g., `ToolDemo.js`), use the following prompt format:
@@ -161,6 +177,7 @@ Classic ChatGPT can be used for a wide range of documentation tasks. Here’s ho
 
 2. **Write the Prompt**: Clearly articulate your documentation needs. For example, if you’re documenting a Tool, your prompt might look like this:
 
+````
 write downloadable documentation in md format of this tool ToolDemo.js
 [description] is a specialized component of the ToolX library, focused on SVG file manipulation and optimization, use svgo external library https://github.com/svg/svgo.
 
@@ -188,10 +205,10 @@ export type ToolSettings = {
      */
     transformPrecision?: number;
 };
-
+````
 3. **Refine and Expand**: Based on the initial output, you can ask ChatGPT to refine specific sections or add additional details.
 
-4. **Incorporate Highlights**: You can use `[caution]`, `[tip]`, and `[info]` to make the documentation more user-friendly.
+4. **Incorporate Highlights**: You can use `[warning]`, `[tip]`, `[info]`,`[danger]`, `[details]` to make the documentation more user-friendly.
 
 5. **Review and Edit**: Always review the generated documentation for accuracy and completeness. Make necessary edits to ensure it meets your standards.
 

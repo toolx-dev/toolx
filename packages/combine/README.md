@@ -1,8 +1,8 @@
-# ToolCombine
+# ToolCombine Documentation
 
 `ToolCombine.js` is a specialized component of the ToolX library, designed to combine multiple images into RGB channel-based composite images. This tool uniquely maps each image to a specific color channel - red, green, or blue.
 
-:::note
+::: info
 `ToolCombine` does not provide configurable options and operates on a fixed process of mapping images to RGB channels. The first image is mapped to the red channel, the second to the green, and the third to the blue channel. Subsequent groups of images follow the same pattern.
 :::
 
@@ -54,6 +54,6 @@ pipeline.run(images).then(() => {
 });
 ```
 
-:::caution
+::: warning
 Ensure the correct number and order of images are provided to achieve the desired RGB channel mapping.
 :::

@@ -79,7 +79,7 @@ Contributing to the ToolX library involves understanding the versioning conventi
 - **Command**: `npm run version <nameofpackage> minor`
 - **Description**: Minor updates are significant yet don't affect the core functionality that might break other tools.
 
-:::caution
+::: warning
 Minor updates to the core are treated as per other packages - introducing new features without compromising other tools' functionality.
 :::
 

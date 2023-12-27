@@ -1,78 +1,119 @@
-# ToolSharp
 
-`ToolSharp.js` is an integral component of the ToolX library, focusing on image processing and manipulation. It utilizes the capabilities of the `sharp` library, providing a robust and efficient solution for handling image transformations.
+# ToolSharp Documentation
 
-:::tip
-The `ToolSharp` class integrates with the `sharp` library, a high-performance Node.js module to convert large images in common formats to smaller, web-friendly JPEG, PNG, and WebP images of varying dimensions.
+`ToolSharp` is a part of the ToolX library, focusing specifically on image processing and manipulation. It leverages the `sharp` library, known for its efficiency and robust capabilities in handling image transformations. `ToolSharp` provides a user-friendly interface to access the advanced features of `sharp`, making it a go-to solution for image-related tasks in the ToolX environment.
+
+::: tip
+`ToolSharp` excels in image manipulation and conversion, offering a wide range of customization options. Its integration with the `sharp` library ensures high performance and quality results in various image processing tasks.
 :::
 
 ## Options
 
-The `ToolSharp` class offers various options to customize image processing tasks. These options interface directly with the `sharp` library's features.
+`ToolSharp` comes with a comprehensive set of options that allow users to control different aspects of image processing:
 
-### `settings` {#settings}
+### General Options
 
-The `settings` option allows detailed configuration of image processing parameters. Key settings include:
+- **`settings`**: Configure the sharp class options.
+- **`ext`**: Set the output file extension.
+- **`scale`**: Configure the image scale.
+- **`exts`**: Specify allowed file extensions.
+- **`api`**: Access sharp library features.
 
-- `resize`: Control the resizing of images.
-- `rotate`: Specify rotation angles.
-- `flip`: Enable horizontal or vertical flipping of images.
-- `sharpen`: Adjust image sharpness.
-- `format`: Define the output image format (e.g., JPEG, PNG).
+### Image Processing Options
 
-## Usage
+- **`resize`**: Adjust image dimensions.
+- **`rotate`**: Rotate the image.
+- **`flip`**: Flip the image vertically.
+- **`flop`**: Flip the image horizontally.
+- **`sharpen`**: Sharpen the image.
+- **`threshold`**: Apply image binarization.
+- **`composite`**: Overlay images.
+- **`toFormat`**: Set output format.
+- **`jpeg`**: JPEG-specific options.
+- **`png`**: PNG-specific options.
+- **`webp`**: WebP-specific options.
+- **`avif`**: AVIF-specific options.
+- **`heif`**: HEIF-specific options.
+- **`tiff`**: TIFF-specific options.
+- **`gif`**: GIF-specific options.
+- **`jp2`**: JPEG 2000 options.
+- **`jxl`**: JPEG XL options.
+- **`raw`**: RAW format options.
+- **`tile`**: Image tiling options.
+- **`removeAlpha`**: Remove alpha channel.
+- **`ensureAlpha`**: Ensure alpha channel.
+- **`extractChannel`**: Extract a color channel.
+- **`joinChannel`**: Join channels to the image.
+- **`bandbool`**: Apply a boolean operation.
+- **`tint`**: Tint the image.
+- **`greyscale`/`grayscale`**: Convert to greyscale.
+- **`pipelineColourspace`/`pipelineColorspace`**: Set pipeline colorspace.
+- **`toColourspace`/`toColorspace`**: Set output colorspace.
+- **`affine`**: Perform affine transformation.
+- **`median`**: Apply a median filter.
+- **`blur`**: Blur the image.
+- **`flatten`**: Merge alpha channel.
+- **`gamma`**: Apply gamma correction.
+- **`negate`**: Create a negative image.
+- **`normalise`/`normalize`**: Enhance contrast.
+- **`clahe`**: Adaptive histogram equalization.
+- **`convolve`**: Convolve with a kernel.
+- **`recomb`**: Recombine using a matrix.
 
-### Direct Usage
+## Usage Examples
 
-```js
-import ToolSharp from '@toolx/sharp';
+### Basic Usage
+
+```javascript
+import ToolSharp from '@toolx/core';
 
 // Example usage
 const toolSharp = new ToolSharp({
-    settings: {
-        resize: { width: 300 },
+    ext: 'jpg',
+    scale: 1.5,
+    api: {
+        resize: { width: 300, height: 200 },
         rotate: 90,
-        flip: true,
         sharpen: true,
-        format: 'jpeg',
-        // Other sharp settings
+        // Other sharp options
     }
 });
 
-// Running the tool
-toolSharp.run(options, inputFile, outputFile).then(() => {
+// Run the tool
+toolSharp.run(inputFilePath, outputFilePath).then(() => {
     console.log('Image processing complete');
 });
 ```
 
-### Usage in Pipeline
+### Advanced Usage in a Pipeline
 
-```js
+```javascript
 import { Pipeline } from '@toolx/core';
 import ToolSharp from '@toolx/sharp';
+import ToolOther from '@toolx/other'; // Another ToolX tool
 
 // Setting up the pipeline
 const pipeline = new Pipeline();
 pipeline.compose(
+    new ToolOther(/* ToolOther options */),
     new ToolSharp({
-        settings: {
+        ext: 'png',
+        scale: 2,
+        api: {
             resize: { width: 600 },
-            format: 'png',
-            // Other sharp settings
+            flip: true,
+            toFormat: 'png',
+            // Other sharp options
         }
     })
 );
 
-// Running the pipeline
-pipeline.run(options, inputPath, outputPath).then(() => {
-    console.log('Image processing in pipeline complete');
+// Run the pipeline
+pipeline.run(inputPath, outputPath).then(() => {
+    console.log('Image processing pipeline complete');
 });
 ```
 
-### External Library: `sharp`
+### Sharp Library Integration
 
-`ToolSharp` leverages the `sharp` library for image processing. For more information on `sharp` settings and capabilities, refer to the [sharp documentation](https://sharp.pixelplumbing.com/).
-
-:::tip
-`ToolSharp` is a powerful tool for image manipulation and conversion, offering extensive customization options and high performance.
-:::
+`ToolSharp` integrates with the `sharp` library for most of its image processing capabilities. For detailed information on the `sharp` library and its options, visit [sharp documentation](https://sharp.pixelplumbing.com/).
