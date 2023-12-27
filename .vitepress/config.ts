@@ -37,13 +37,14 @@ export default defineConfig({
   description: "Documentation",
   lastUpdated: true,
   cleanUrls: true,
+  base: '/toolx/dist/',
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/toolx-logo.png' }],
     ['meta', { name: 'theme-color', content: '#5f67ee' }],
     ['meta', { name: 'og:type', content: 'website' }],
     ['meta', { name: 'og:locale', content: 'en' }],
     ['meta', { name: 'og:site_name', content: 'ToolX' }],
-    ['meta', { name: 'og:image', content: 'https://vitepress.dev/vitepress-og.jpg' }],
+    // ['meta', { name: 'og:image', content: 'https://vitepress.dev/vitepress-og.jpg' }],
   ],
   markdown: {
       // Extend markdown-it
