@@ -33,8 +33,5 @@
     "eslint": "^8.30.0",
     "vitepress": "^1.0.0-rc.32",
     "vitest": "^1.0.4"
-  },
-  "dependencies": {
-    "workspaces": "^0.1.0"
   }
 }
