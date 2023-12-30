@@ -5,14 +5,8 @@ import imageminJpegtran from 'imagemin-jpegtran';
 import imageminPngquant from 'imagemin-pngquant';
 
 class ToolImagemin extends Tool {
-    /**
-    * Constructs a new ToolImagemin instance.
-    * @param {ToolOptions} options - Configuration options for ToolImagemin.
-    * @param {string | [string]} pathIn - The input path where the current files are located.
-    * @param {string} pathOut - The output path where the processed file will be stored.
-    */
-    constructor(options, pathIn, pathOut) {
-        super(options, pathIn, pathOut);
+    options = {
+        exts: ['png', 'jpg', 'jpeg']
     }
 
     /**
