@@ -1,11 +1,11 @@
 {
     "name": "@toolx/combine",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "",
     "main": "ToolCombine.js",
     "source": "ToolCombine.js",
     "bin": {
-        "toolx-combine": "./ToolCombine.cli.mjs"
+        "toolx-combine": "./ToolCombine.cli.js"
     },
     "publishConfig": {
         "access": "public",
