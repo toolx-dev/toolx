@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import Tool from '../ToolImagemin';
 import path from 'node:path'
-import os from 'node:os'
 import { fileURLToPath } from 'node:url'
 
 describe('ToolImagemin', () => {
@@ -18,11 +17,9 @@ describe('ToolImagemin', () => {
     });
 
     it('should run the tool logic', async () => {
-        if (process.env.RUNNER_TEMP) return; // TODO: check this test on github actions
-        await Tool.removeDir(path.join(os.tmpdir(), `ToolImagemin`));
+        const tempDirPathOut = path.join(__dirname, 'tmp')
 
-        const tempDir = path.join(os.tmpdir(), `ToolImagemin`);
-        const tempDirPathOut = path.join(tempDir, `out`);
+        await Tool.removeDir(tempDirPathOut);
 
         const tempFilePath = `${__dirname}/assets/*`;
 
@@ -31,16 +28,15 @@ describe('ToolImagemin', () => {
 
         expect(result.files).toEqual([
             `${tempDirPathOut}/fileTest_1.png`,
-            `${tempDirPathOut}/fileTest_2.png`
+            `${tempDirPathOut}/fileTest_2.png`,
+            `${tempDirPathOut}/fileTest_3.gif`
         ]);
     });
 
     it('should run the tool logic with options', async () => {
-        if (process.env.RUNNER_TEMP) return; // TODO: check this test on github actions
-        await Tool.removeDir(path.join(os.tmpdir(), `ToolImagemin`));
+        const tempDirPathOut = path.join(__dirname, 'tmp')
 
-        const tempDir = path.join(os.tmpdir(), `ToolImagemin`);
-        const tempDirPathOut = path.join(tempDir, `out`);
+        await Tool.removeDir(tempDirPathOut);
 
         const tempFilePath = `${__dirname}/assets/**/*`;
 
@@ -62,6 +58,7 @@ describe('ToolImagemin', () => {
         expect(result.files).toEqual([
             `${tempDirPathOut}/fileTest_1.png`,
             `${tempDirPathOut}/fileTest_2.png`,
+            `${tempDirPathOut}/fileTest_3.gif`,
             `${tempDirPathOut}/subfolder/fileTest_1.png`,
         ]);
     });

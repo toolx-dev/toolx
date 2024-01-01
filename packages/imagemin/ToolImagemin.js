@@ -1,12 +1,12 @@
 
 import Tool from '@toolx/core/Tool.server.js';
-import imagemin from 'imagemin';
-import imageminJpegtran from 'imagemin-jpegtran';
-import imageminPngquant from 'imagemin-pngquant';
+import { runFile } from '@toolx/core/utils.server.js'
+import optipng from 'optipng-bin';
 
 class ToolImagemin extends Tool {
     options = {
-        exts: ['png', 'jpg', 'jpeg']
+        exts: ['png']
+        //'jpg', 'jpeg', 'gif'
     }
 
     /**
@@ -22,20 +22,32 @@ class ToolImagemin extends Tool {
      * @param {number} param.index - The index of the current file in the array of files being processed.
      */
     async onEveryFile(next, { file, pathIn, options }) {
-        await imagemin([file], {
-            destination: pathIn,
-            plugins: [
-                imageminJpegtran({
-                    ...(options?.jpg || {})
-                }),
-                imageminPngquant({
-                    speed: 1,
-                    strip: true,
-                    quality: [0.2, 0.6],
-                    ...(options?.png || {})
-                })
-            ]
-        })
+
+        execFile(optipng, ['-out', 'output.png', 'input.png'], error => {
+            console.log('Image minified!');
+        });
+
+        await runFile()
+        // await imagemin([file], {
+        //     destination: pathIn,
+        //     plugins: [
+        //         imageminJpegtran({
+        //             ...(options?.jpg || {})
+        //         }),
+        //         imageminPngquant({
+        //             speed: 1,
+        //             strip: true,
+        //             quality: [0.2, 0.6],
+        //             ...(options?.png || {})
+        //         }),
+        //         imageminGifsicle({
+        //             interlaced: false,
+        //             optimizationLevel: 1,
+        //             colors: 256,
+        //             ...(options?.gif || {})
+        //         })
+        //     ]
+        // })
 
         next(file);
     }
@@ -43,18 +55,34 @@ class ToolImagemin extends Tool {
 
 export default ToolImagemin
 
+
 /**
  * @typedef ToolOptions
- * @property {string[]} [exts] - Option to configure extensions.
- * @property {string[]} [includes] - Option to configure include files with this string.
- * @property {string[]} [excludes] - Option to configure exclude files with this string.
- * @property {Object} [jpg] - The parameter object containing details for jpg file.
- * @property {boolean} [jpg.progressive] - Lossless conversion to progressive.
- * @property {boolean} [jpg.arithmetic] - Use arithmetic coding.
- * @property {Object} [png] - The parameter object containing details for png file.
- * @property {number} [png.speed] - Default = 4, Speed 10 has 5% lower quality, but is about 8 times faster than the default. Speed 11 disables dithering and lowers compression level.
- * @property {boolean} [png.strip] - Remove optional metadata.
- * @property {[number, number]} [png.quality] - Min and max are numbers in range 0 (worst) to 1 (perfect), similar to JPEG.
- * @property {number|boolean} [png.dithering] - Set the dithering level using a fractional number between 0 (none) and 1 (full).
- * @property {number} [png.posterize] - Truncate number of least significant bits of color (per channel)
+ * @property {Object} [png] - The parameter object containing details for OptiPNGOptions.
+ * @property {number} [png.optimizationLevel=2] - Optimization level (0-7).
+ * @property {boolean} [png.verbose=false] - Run in verbose mode.
+ * @property {boolean} [png.backup=false] - Keep a backup of the modified files.
+ * @property {boolean} [png.clobber=false] - Overwrite existing files.
+ * @property {boolean} [png.fix=false] - Enable error recovery.
+ * @property {boolean} [png.force=false] - Enforce writing of a new output file.
+ * @property {boolean} [png.preserve=false] - Preserve file attributes if possible.
+ * @property {boolean} [png.quiet=false] - Run in quiet mode.
+ * @property {boolean} [png.simulate=false] - Run in simulation mode.
+ * @property {string} [png.out] - Write output file to specified path.
+ * @property {string} [png.dir] - Write output file(s) to specified directory.
+ * @property {string} [png.log] - Log messages to specified file.
+ * @property {number[]} [png.filters=[0, 5]] - PNG delta filters (0-5).
+ * @property {number} [png.interlaceType] - PNG interlace type (0-1).
+ * @property {number[]} [png.zlibCompressionLevels=9] - Zlib compression levels (1-9).
+ * @property {number[]} [png.zlibMemoryLevels=8] - Zlib memory levels (1-9).
+ * @property {number[]} [png.zlibCompressionStrategies=[0, 3]] - Zlib compression strategies (0-3).
+ * @property {string} [png.zlibWindowSize] - Zlib window size (256,512,1k,2k,4k,8k,16k,32k).
+ * @property {boolean} [png.fullReport=false] - Produce a full report on IDAT.
+ * @property {boolean} [png.noBitDepthReduction=false] - No bit depth reduction.
+ * @property {boolean} [png.noColorTypeReduction=false] - No color type reduction.
+ * @property {boolean} [png.noPaletteReduction=false] - No palette reduction.
+ * @property {boolean} [png.noReductions=false] - No reductions.
+ * @property {boolean} [png.noIDATRecoding=false] - No IDAT recoding.
+ * @property {boolean} [png.snip=false] - Cut one image out of multi-image or animation files.
+ * @property {string} [png.strip] - Strip metadata objects (e.g., "all").
  */

@@ -29,9 +29,15 @@ This tool uses the `imagemin` library, which is a powerful and flexible image co
 - `dithering`: Apply dithering to PNG images.
 - `posterize`: Reduce the number of colors in PNG images.
 
+### GIF Compression Settings
+
+- `interlaced`: Interlace gif for progressive rendering. Default: false.
+- `optimizationLevel`: Optimization level between 1 and 3. Default: 1.
+- `colors`: Reduce the number of distinct colors in each output GIF to num or less. Num must be between 2 and 256.
+
 ## Usage
 
-### Example: Compressing JPG and PNG Images
+### Example: Compressing JPG and PNG and GIF Images
 
 ```js
 import ToolImagemin from '@toolx/image-compress';
@@ -51,6 +57,11 @@ const compressOptions = {
         quality: [0.6, 0.8],
         dithering: 0.5,
         posterize: 4
+    },
+    gif: {
+        interlaced: true,
+        optimizationLevel: 2,
+        colors: 128,
     }
 };
 

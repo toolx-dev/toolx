@@ -29,15 +29,19 @@ export type ToolOptions = {
         dithering?: number | boolean;
         posterize?: number;
     };
+    /**
+     * - The parameter object containing details for gif file.
+     */
+    gif?: {
+        interlaced?: boolean;
+        optimizationLevel?: number;
+        colors?: number;
+    };
 };
 declare class ToolImagemin extends Tool {
-    /**
-    * Constructs a new ToolImagemin instance.
-    * @param {ToolOptions} options - Configuration options for ToolImagemin.
-    * @param {string | [string]} pathIn - The input path where the current files are located.
-    * @param {string} pathOut - The output path where the processed file will be stored.
-    */
-    constructor(options: ToolOptions, pathIn: string | [string], pathOut: string);
+    options: {
+        exts: string[];
+    };
     /**
      * onEveryFile
      * @param {function} next - Callback function to proceed to the next file or operation.
@@ -50,7 +54,7 @@ declare class ToolImagemin extends Tool {
      * @param {*} param.prev - The result or data from the previous file processed or the previous step in the pipeline.
      * @param {number} param.index - The index of the current file in the array of files being processed.
      */
-    onEveryFile(next: Function, { file, options }: {
+    onEveryFile(next: Function, { file, pathIn, options }: {
         file: string;
         pathIn: string;
         pathOut: string;
@@ -60,4 +64,4 @@ declare class ToolImagemin extends Tool {
         index: number;
     }): Promise<void>;
 }
-import Tool from "@toolx/core/Tool.server";
+import Tool from '@toolx/core/Tool.server.js';

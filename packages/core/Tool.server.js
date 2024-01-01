@@ -137,7 +137,7 @@ class Tool extends Base {
         // Copy files from input paths to the temporary path
         _pathIn = _pathIn.map((p) => {
             const _glob = glob.generateTasks(p, { objectMode: true })[0];
-            if (!_glob.dynamic) {
+            if (_glob && !_glob.dynamic) {
                 const stat = fs.lstatSync(p);
                 if (stat.isDirectory()) return `${p}/**/*`;
             }
@@ -302,7 +302,7 @@ class Tool extends Base {
                 globstar: true,
                 markDirectories: true
             });
-            
+
             const _pathIn = _glob.base;
             this.opts.basePathIn = _pathIn;
 

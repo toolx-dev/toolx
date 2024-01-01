@@ -1,7 +1,11 @@
-import { spawn, exec } from 'node:child_process';
+import { spawn, exec, execFile } from 'node:child_process';
 import mustargs from 'mustargs';
-import glob from 'fast-glob'
 
+/**
+ * checkPythonPackages
+ * @param {string[]} packages 
+ * @returns {Promise<void>}
+ */
 const checkPythonPackages = (packages) => {
     return new Promise((resolve) => {
         const checkScript = packages.map(pkg => `import ${pkg}`).join('; ');
@@ -17,6 +21,13 @@ const checkPythonPackages = (packages) => {
     });
 }
 
+/**
+ * runCLI
+ * @param {string} command 
+ * @param {string} script 
+ * @param {string[]} args 
+ * @returns {Promise<void>}
+ */
 const runCLI = (command, script, args) => {
     return new Promise((resolve, reject) => {
         // Spawn the Python process
@@ -50,8 +61,20 @@ const runCLI = (command, script, args) => {
     });
 }
 
+/**
+ * runPython
+ * @param {string} script 
+ * @param {string[]} args 
+ * @returns {Promise<void>}
+ */
 const runPython = (script, args) => runCLI('python3', script, args);
 
+/**
+ * runNode
+ * @param {string} script 
+ * @param {string[]} args 
+ * @returns {Promise<void>}
+ */
 const runNode = (script, args) => runCLI('node', script, args);
 
 const getArgsFromCLI = () => {
@@ -65,10 +88,29 @@ const getArgsFromCLI = () => {
     return { ...args, options, pathIn, pathOut }
 }
 
+/**
+ * runFile
+ * @param {string} file 
+ * @param {string[]} commands 
+ * @returns {Promise<void>}
+ */
+const runFile = (file, commands) => {
+    return new Promise((resolve) => {
+        execFile(file, commands, (error) => {
+            if (error) {
+                resolve(false);
+            } else {
+                resolve(true);
+            }
+        });
+    });
+}
+
 export {
     getArgsFromCLI,
     checkPythonPackages,
     runPython,
     runCLI,
     runNode,
+    runFile,
 };

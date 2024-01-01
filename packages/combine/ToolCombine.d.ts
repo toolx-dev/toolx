@@ -54,4 +54,4 @@ declare class ToolCombine extends Tool {
         options: any;
     }): Promise<void>;
 }
-import Tool from "@toolx/core/Tool.server";
+import Tool from '@toolx/core/Tool.server.js';

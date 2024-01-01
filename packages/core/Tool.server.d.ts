@@ -68,6 +68,7 @@ declare class Tool extends Base {
     run(options: object, pathIn: string | string[], pathOut: string): Promise<object>;
     eventHandler: Event;
     opts: any;
+    _tempDir: any;
     /**
      * Processes files.
      * @param {string[]} files - Array of file paths.
@@ -143,5 +144,5 @@ declare class Tool extends Base {
         options: any;
     }): void;
 }
-import Base from "./Base.js";
-import Event from "./Event.js";
+import Base from './Base.js';
+import Event from './Event.js';

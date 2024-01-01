@@ -15,9 +15,7 @@
     "sideEffects": false,
     "dependencies": {
         "@toolx/core": "^1.1.5",
-        "imagemin": "^8.0.1",
-        "imagemin-jpegtran": "^7.0.0",
-        "imagemin-pngquant": "^9.0.2"
+        "optipng-bin": "^9.0.0"
     },
     "scripts": {
         "test": "vitest run",

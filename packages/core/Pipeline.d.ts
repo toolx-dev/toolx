@@ -17,9 +17,9 @@ declare class Pipeline extends Base {
     /**
      * compose
      * @param  {...any} fns
-     * @returns {PromiseFunc}
+     * @returns {Promise<void>}
      */
-    compose(...fns: any[]): PromiseFunc;
+    compose(...fns: any[]): Promise<void>;
 }
-import Base from "./Base.js";
-import Event from "./Event.js";
+import Base from './Base.js';
+import Event from './Event.js';
