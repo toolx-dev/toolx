@@ -238,7 +238,7 @@ export default ToolImagemin
 
 /**
  * @typedef MozJPEGOptions
- * @property {number[]} [quality=[75]] - Compression quality (0-100; 5-95 is most useful range, default is 75).
+ * @property {number} [quality=75] - Compression quality (0-100; 5-95 is most useful range, default is 75).
  * @property {boolean} [grayscale=false] - Create monochrome JPEG file.
  * @property {boolean} [rgb=true] - Create RGB JPEG file.
  * @property {boolean} [optimize=true] - Optimize Huffman table (smaller file, but slow compression, enabled by default).

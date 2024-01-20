@@ -195,7 +195,7 @@ export type MozJPEGOptions = {
     /**
      * - Compression quality (0-100; 5-95 is most useful range, default is 75).
      */
-    quality?: number[];
+    quality?: number;
     /**
      * - Create monochrome JPEG file.
      */

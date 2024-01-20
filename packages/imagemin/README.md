@@ -138,7 +138,7 @@ const run = new ToolImagemin({
 
 #### Options
 
-- `quality` (number[]): Compression quality (0-100; 5-95 is most useful range, default is 75).
+- `quality` (number): Compression quality (0-100; 5-95 is most useful range, default is 75).
 - `grayscale` (boolean): Create monochrome JPEG file.
 - `rgb` (boolean): Create RGB JPEG file.
 - `optimize` (boolean): Optimize Huffman table (smaller file, but slow compression, enabled by default).
@@ -164,7 +164,7 @@ const run = new ToolImagemin({
 ```js
 const optimizer = new ToolImagemin({
     mozjpeg: {
-        quality: [75],
+        quality: 75,
         grayscale: false,
         optimize: true,
         progressive: true
