@@ -96,8 +96,9 @@ const getArgsFromCLI = () => {
  */
 const runFile = (file, commands) => {
     return new Promise((resolve) => {
-        execFile(file, commands, (error) => {
+        execFile(file, commands, (error, stdout, stderr) => {
             if (error) {
+                console.log(error) // TODO: need to expose a debug constant to show errors 
                 resolve(false);
             } else {
                 resolve(true);

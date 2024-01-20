@@ -32,11 +32,35 @@ const toCamelCase = (string, startWithCapital = false) => {
     return words.join('');
 };
 
+function deepMerge(...objects) {
+    let result = {};
+
+    function isObject(item) {
+        return item && typeof item === 'object' && !Array.isArray(item);
+    }
+
+    for (const source of objects) {
+        if (isObject(source)) {
+            for (const key in source) {
+                if (isObject(source[key])) {
+                    if (!result[key]) result[key] = {};
+                    result[key] = deepMerge(result[key], source[key]);
+                } else {
+                    result[key] = source[key];
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
 const events = new Event()
 
 export {
     capitalize,
     formatJson,
     toCamelCase,
+    deepMerge,
     events
 };
