@@ -1,6 +1,6 @@
 {
     "name": "@toolx/sharp",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Image processing and manipulation. It utilizes the capabilities of the `sharp` library.",
     "main": "ToolSharp.js",
     "module": "ToolSharp.js",
@@ -15,7 +15,7 @@
     "type": "module",
     "sideEffects": false,
     "dependencies": {
-        "@toolx/core": "^1.1.5",
+        "@toolx/core": "^1.2.0",
         "sharp": "^0.32.0"
     },
     "scripts": {
