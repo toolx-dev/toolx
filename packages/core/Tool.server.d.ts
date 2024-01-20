@@ -57,7 +57,6 @@ declare class Tool extends Base {
      * @returns {Promise<void>}
      */
     static removeDir(dirPath: string): Promise<void>;
-    options: {};
     /**
      * Runs the tool's main logic.
      * @param {object} options - Options for the tool.
@@ -67,7 +66,9 @@ declare class Tool extends Base {
      */
     run(options: object, pathIn: string | string[], pathOut: string): Promise<object>;
     eventHandler: Event;
-    opts: any;
+    options: any;
+    _tempDir: any;
+    _tempDirTool: string;
     /**
      * Processes files.
      * @param {string[]} files - Array of file paths.
@@ -143,5 +144,5 @@ declare class Tool extends Base {
         options: any;
     }): void;
 }
-import Base from "./Base.js";
-import Event from "./Event.js";
+import Base from './Base.js';
+import Event from './Event.js';

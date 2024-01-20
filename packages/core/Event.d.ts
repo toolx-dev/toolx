@@ -28,4 +28,4 @@ declare class Event {
      */
     off(eventName: string, callback: Function): void;
 }
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';

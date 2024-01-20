@@ -26,10 +26,6 @@ describe('Tool class', () => {
         expect(toolInstance).toBeInstanceOf(Tool);
     });
 
-    it('should have options initialized', () => {
-        expect(toolInstance.options).toEqual({});
-    });
-
     it('should check if create dir and path exists', async () => {
         if (process.env.RUNNER_TEMP) return; // TODO: check this test on github actions
         await Tool.createDir(tempDirPath);

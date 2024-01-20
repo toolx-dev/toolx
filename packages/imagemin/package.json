@@ -15,9 +15,12 @@
     "sideEffects": false,
     "dependencies": {
         "@toolx/core": "^1.1.5",
-        "imagemin": "^8.0.1",
-        "imagemin-jpegtran": "^7.0.0",
-        "imagemin-pngquant": "^9.0.2"
+        "guetzli": "^5.0.0",
+        "jpegtran-bin": "^7.0.0",
+        "ketargs": "^1.0.3",
+        "mozjpeg": "^8.0.0",
+        "optipng-bin": "^9.0.0",
+        "pngquant-bin": "^8.0.1"
     },
     "scripts": {
         "test": "vitest run",

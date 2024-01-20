@@ -22,7 +22,7 @@ class Pipeline extends Base {
     /**
      * compose
      * @param  {...any} fns
-     * @returns {PromiseFunc}
+     * @returns {Promise<void>}
      */
     compose(...fns) {
         this.eventHandler.emit(Pipeline.EVENTS.START, { ...fns })

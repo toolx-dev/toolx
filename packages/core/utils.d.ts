@@ -18,5 +18,6 @@ export function formatJson(data: object, indentLevel?: number): string;
  * @returns {string}
  */
 export function toCamelCase(string: string, startWithCapital?: boolean): string;
+export function deepMerge(...objects: any[]): {};
 export const events: Event;
 import Event from "./Event.js";

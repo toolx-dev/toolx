@@ -4,6 +4,7 @@ import fs, { constants } from 'node:fs';
 import path from 'node:path';
 import glob from 'fast-glob';
 import Event from './Event.js';
+import { deepMerge } from './utils.js';
 
 /**
  * Tool.server
@@ -34,10 +35,6 @@ class Tool extends Base {
          */
         END: 'end'
     };
-
-    options = {
-
-    }
 
     /**
      * Creates a directory if it doesn't exist.
@@ -111,12 +108,9 @@ class Tool extends Base {
             name: this.constructor.name,
         });
 
-        this.opts = {
+        this.options = deepMerge({
             export: true,
-            ...this.options, // options from tool
-            ...this._options, // options from tool props
-            ...options,
-        }
+        }, this.options, this._options, options);
 
         pathIn = pathIn || this._pathIn;
         pathOut = pathOut || this._pathOut;
@@ -126,18 +120,20 @@ class Tool extends Base {
 
         // Generate a temporary path using os.tmpdir() and a unique identifier
         this._tempDir = os.tmpdir();
-        const pathTemp = path.join(this._tempDir, `toolx_${this.getUID()}`);
+        const uniqueId = `uid-${Math.random().toString(36).slice(2, 11)}-${Date.now()}`;
+        this._tempDirTool = `toolx_${uniqueId}_${this.getUID()}`;
+        const pathTemp = path.join(this._tempDir, this._tempDirTool);
 
         // Create a temporary directory if it doesn't exist
         await Tool.createDir(pathTemp);
 
         // Create the output directory if it doesn't exist
-        if (!this.opts?.noTempCopy) await Tool.createDir(pathOut);
+        if (!this.options?.noTempCopy) await Tool.createDir(pathOut);
 
         // Copy files from input paths to the temporary path
         _pathIn = _pathIn.map((p) => {
             const _glob = glob.generateTasks(p, { objectMode: true })[0];
-            if (!_glob.dynamic) {
+            if (_glob && !_glob.dynamic) {
                 const stat = fs.lstatSync(p);
                 if (stat.isDirectory()) return `${p}/**/*`;
             }
@@ -148,9 +144,9 @@ class Tool extends Base {
         // Check if the first input path starts with the temporary directory and remove it if necessary
         if (this.isTempFolder(_pathIn[0])) await Tool.removeDir(_pathIn[0]);
 
-        this.eventHandler.emit(Tool.EVENTS.START, { pathIn: pathTemp, pathOut, options: this.opts })
+        this.eventHandler.emit(Tool.EVENTS.START, { pathIn: pathTemp, pathOut, options: this.options })
 
-        await this.onStart(pathTemp, pathOut, this.opts);
+        await this.onStart(pathTemp, pathOut, this.options);
 
         // Process the files
         const output = await this.process(filesPath, pathTemp, pathOut);
@@ -167,7 +163,7 @@ class Tool extends Base {
      * @returns {Promise<any>} - A promise containing the processing output.
      */
     async process(files, pathIn, pathOut) {
-        const options = this.opts;
+        const options = this.options;
         const { excludes, includes, basename } = options;
         let filesOutput = [];
 
@@ -187,7 +183,20 @@ class Tool extends Base {
                     return Promise.resolve();
                 }
 
-                return new Promise((resolveFile) => {
+                return new Promise(async (resolveFile) => {
+
+                    if (this.options?.preprocess && typeof this.options.preprocess === 'function') {
+                        await this.options.preprocess({
+                            pathIn,
+                            pathOut,
+                            files,
+                            file,
+                            options,
+                            prev,
+                            index,
+                        });
+                    }
+
                     this.onEveryFile(resolveFile, {
                         pathIn,
                         pathOut,
@@ -205,11 +214,21 @@ class Tool extends Base {
                 // prevFile is a promise that resolves to the value passed between iterations
                 (prevFile, nextFile, index) =>
                     prevFile.then((value) => {
-                        if ((this.opts?.exts && Tool.checkFileExt(nextFile, this.opts.exts)) || !this.opts?.exts) {
+                        if ((this.options?.exts && Tool.checkFileExt(nextFile, this.options.exts)) || !this.options?.exts) {
                             // Execute the fileRun function for the current file
-                            const outputFile = fileRun(nextFile, index, value).then((file) => {
+                            const outputFile = fileRun(nextFile, index, value).then(async (file) => {
                                 this.eventHandler.emit(Tool.EVENTS.PROCESS, { file })
-
+                                if (this.options?.postprocess && typeof this.options.postprocess === 'function') {
+                                    await this.options.postprocess({
+                                        pathIn,
+                                        pathOut,
+                                        files,
+                                        file,
+                                        options,
+                                        index,
+                                        filesOutput,
+                                    });
+                                }
                                 // Push the resolved file value to the filesOutput array
                                 filesOutput.push(file);
                             });
@@ -249,7 +268,11 @@ class Tool extends Base {
             filesOutput = body.files;
 
             // Remove the temporary directory
-            await Tool.removeDir(pathIn);
+            if (!this.options?.debug) {
+                await Tool.removeDir(pathIn);
+            } else {
+                console.log(pathIn)
+            }
         }
 
 
@@ -302,20 +325,29 @@ class Tool extends Base {
                 globstar: true,
                 markDirectories: true
             });
-            
+
             const _pathIn = _glob.base;
-            this.opts.basePathIn = _pathIn;
+            this.options.basePathIn = _pathIn;
 
             if (files.length === 0) {
                 return Promise.resolve([]);
             }
 
-            if (this.opts?.noTempCopy) {
+            if (this.options?.noTempCopy) {
                 return files
             }
 
             const copyPromises = Promise.all(files.map((pathFile) => {
-                let pathFileOut = pathFile.replace(_pathIn, pathOut);
+                let pathFileOut = path.join(pathOut, _pathIn === '.' ? pathFile : pathFile.replace(_pathIn, ''));
+
+                if (!this.isTempFolder(pathOut)) {
+                    pathFileOut = pathFileOut.replace(path.join(this._tempDir, this._tempDirTool), pathOut);
+                }
+
+                if (this.options?.suffix) {
+                    pathFileOut = pathFileOut.replace(path.extname(pathFileOut), `${this.options.suffix}${path.extname(pathFileOut)}`)
+                }
+
                 if (onCopy) onCopy(pathFileOut)
                 return fs.promises.cp(pathFile, pathFileOut, { recursive: false }).then(() => pathFileOut);
             }))
