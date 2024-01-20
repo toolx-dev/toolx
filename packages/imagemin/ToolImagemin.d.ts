@@ -28,14 +28,6 @@ export type ToolOptions = {
      * - The parameter object containing details for MozJPEGOptions.
      */
     mozjpeg?: MozJPEGOptions;
-    /**
-     * - The parameter object containing details for GuetzliOptions.
-     */
-    guetzli?: GuetzliOptions;
-    /**
-     * - Activate guetzli instead of mozjpeg.
-     */
-    useGuetzli?: boolean;
 };
 export type OptiPNGOptions = {
     /**
@@ -282,20 +274,6 @@ export type MozJPEGOptions = {
      */
     maxmemory?: number;
 };
-export type GuetzliOptions = {
-    /**
-     * - Visual quality to aim for, expressed as a JPEG quality value.
-     */
-    quality?: number;
-    /**
-     * - Memory limit in MB for Guetzli. If unable to stay under this limit, the process will fail.
-     */
-    memlimit?: number;
-    /**
-     * - Do not limit memory usage during the JPEG compression process by Guetzli.
-     */
-    nomemlimit?: boolean;
-};
 declare class ToolImagemin extends Tool {
     options: {
         exts: string[];
@@ -313,9 +291,7 @@ declare class ToolImagemin extends Tool {
             strip: string;
         };
         mozjpeg: {};
-        guetzli: {};
         jpegtran: {};
-        useGuetzli: boolean;
     };
     mapRange(value: any, fromMin: any, fromMax: any, toMin: any, toMax: any, roundOutput: any): any;
     getArgs(type: any, lossless: any): any;

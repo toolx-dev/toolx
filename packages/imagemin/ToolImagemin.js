@@ -6,7 +6,6 @@ import optipng from 'optipng-bin';
 import pngquant from 'pngquant-bin';
 import jpegtran from 'jpegtran-bin';
 import mozjpeg from 'mozjpeg';
-import guetzli from 'guetzli';
 import ketargs from 'ketargs';
 
 class ToolImagemin extends Tool {
@@ -26,9 +25,7 @@ class ToolImagemin extends Tool {
             strip: 'all',
         },
         mozjpeg: {},
-        guetzli: {},
         jpegtran: {},
-        useGuetzli: false
     }
 
     mapRange(value, fromMin, fromMax, toMin, toMax, roundOutput) {
@@ -108,13 +105,8 @@ class ToolImagemin extends Tool {
             if (lossless) {
                 return ketargs(this.options.jpegtran).map(e => e.replace('--', '-')) || [];
             } else {
-                if (this.options.useGuetzli) {
-                    if (this.options.compression > 0) this.options.guetzli.quality = Math.max(this.mapRange(this.options.compression, 0, 10, 100, 1, true), 84); // forced by a Guetzli restriction
-                    return ketargs(this.options.guetzli) || [];
-                } else {
-                    if (this.options.compression > 0) this.options.mozjpeg.quality = this.mapRange(this.options.compression, 0, 10, 100, 1, true);
-                    return ketargs(this.options.mozjpeg).map(e => e.replace('--', '-')) || [];
-                }
+                if (this.options.compression > 0) this.options.mozjpeg.quality = this.mapRange(this.options.compression, 0, 10, 100, 1, true);
+                return ketargs(this.options.mozjpeg).map(e => e.replace('--', '-')) || [];
             }
         }
     }
@@ -130,11 +122,7 @@ class ToolImagemin extends Tool {
             if (this.options.lossless) {
                 return [jpegtran, [...this.getArgs('jpg', true), ...args, '-outfile', outputfile, inputFile]]
             } else {
-                if (!this.options.useGuetzli || (this.options.useGuetzli && this.options.compression > 0 && this.options.compression < 8)) {
-                    return [mozjpeg, [...this.getArgs('jpg', false), ...args, '-outfile', outputfile, inputFile]]
-                } else {
-                    return [guetzli, [...this.getArgs('jpg', false), ...args, inputFile, outputfile]]
-                }
+                return [mozjpeg, [...this.getArgs('jpg', false), ...args, '-outfile', outputfile, inputFile]]
             }
         }
     }
@@ -194,8 +182,6 @@ export default ToolImagemin
  * @property {PNGQuantOptions} [pngquant] - The parameter object containing details for PNGQuantOptions.
  * @property {JPEGTranOptions} [jpegtran] - The parameter object containing details for JPEGTranOptions.
  * @property {MozJPEGOptions} [mozjpeg] - The parameter object containing details for MozJPEGOptions.
- * @property {GuetzliOptions} [guetzli] - The parameter object containing details for GuetzliOptions.
- * @property {boolean} [useGuetzli] - Activate guetzli instead of mozjpeg.
  */
 
 /**
@@ -273,11 +259,4 @@ export default ToolImagemin
  * @property {number} [restart] - Set restart interval in rows or blocks with B.
  * @property {number} [smooth=0] - Smooth dithered input (N=1..100 is strength).
  * @property {number} [maxmemory] - Maximum memory to use (in kbytes).
-*/
-
-/**
- * @typedef GuetzliOptions
- * @property {number} [quality=75] - Visual quality to aim for, expressed as a JPEG quality value.
- * @property {number} [memlimit=6000] - Memory limit in MB for Guetzli. If unable to stay under this limit, the process will fail.
- * @property {boolean} [nomemlimit=false] - Do not limit memory usage during the JPEG compression process by Guetzli.
 */

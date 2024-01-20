@@ -172,31 +172,6 @@ const optimizer = new ToolImagemin({
 });
 ```
 
-### Guetzli Options
-
-`GuetzliOptions` (lossy) is a configuration object used by `ToolImagemin` for Google's Guetzli JPEG encoder. [Guetzli](https://www.npmjs.com/package/guetzli) aims for excellent compression density at high visual quality. Below are the configurable options with descriptions and usage examples:
-
-#### Options
-
-- `quality` (number): Visual quality to aim for, expressed as a JPEG quality value.
-- `memlimit` (number): Memory limit in MB for Guetzli. Help prevent excessive resource usage.
-- `nomemlimit` (boolean): Do not limit memory usage. Use with caution, may lead to large memory consumption.
-
-#### Usage Example
-
-```js
-const optimizer = new ToolImagemin({
-    guetzli: {
-        quality: 85,
-        memlimit: 1000  // Set memory limit to 1000 MB.
-    }
-});
-```
-
-### Switches to Alternative Methods
-
-- `useGuetzli` (boolean): Switch to using Guetzli for JPEG optimization instead of MozJPEG.
-
 ## Usage Example
 
 ```js
@@ -223,8 +198,8 @@ run()
 
 ## External Libraries Used
 
-`ToolImagemin` leverages several external optimization libraries like OptiPNG, PNGQuant, JPEGTran, MozJPEG, and Guetzli. Each of these libraries contributes to the image optimization capabilities of `ToolImagemin`.
+`ToolImagemin` leverages several external optimization libraries like OptiPNG, PNGQuant, JPEGTran, MozJPEG. Each of these libraries contributes to the image optimization capabilities of `ToolImagemin`.
 
 ::: warning
-For more details on configurations and advanced options for each format-specific tool, please refer to respective documentation of OptiPNG, PNGQuant, JPEGTran, MozJPEG, and Guetzli.
+For more details on configurations and advanced options for each format-specific tool, please refer to respective documentation of OptiPNG, PNGQuant, JPEGTran, MozJPEG.
 :::
