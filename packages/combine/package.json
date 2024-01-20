@@ -1,6 +1,6 @@
 {
     "name": "@toolx/combine",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "",
     "main": "ToolCombine.js",
     "source": "ToolCombine.js",
@@ -14,7 +14,7 @@
     "type": "module",
     "sideEffects": false,
     "dependencies": {
-        "@toolx/core": "^1.1.5",
+        "@toolx/core": "^1.2.0",
         "sharp": "^0.32.6"
     },
     "scripts": {
