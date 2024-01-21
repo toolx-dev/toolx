@@ -78,11 +78,17 @@ const runPython = (script, args) => runCLI('python3', script, args);
 const runNode = (script, args) => runCLI('node', script, args);
 
 const getArgsFromCLI = () => {
-    const args = mustargs(process.argv.slice(2));
+    const values = process.argv.slice(2);
+    const args = mustargs(values);
 
-    const pathIn = args.pathIn || args.i || process.cwd() + '/**/*';
+    let pathIn = args.pathIn || args.i || process.cwd() + '/**/*';
+    let pathOut = args.pathOut || args.o || process.cwd();
 
-    const pathOut = args.pathOut || args.o || process.cwd();
+    if (Object.keys(args).length === 0 && values.length > 0) {
+        if (values[0]) pathIn = values[0];
+        if (values[1]) pathOut = values[1];
+    }
+
     const options = args.options || args.opts || args.s || {};
 
     return { ...args, options, pathIn, pathOut }
