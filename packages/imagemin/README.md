@@ -6,6 +6,41 @@
 `ToolImagemin` supports both lossless and lossy compression methods and offers detailed configuration options for different formats including PNG, JPEG, and others.
 :::
 
+## Quick Start
+
+You can quickly start optimizing images using `ToolImagemin` via the `npx` command. This tool is convenient as it does not require a global installation and can be run directly with the following command:
+
+```bash
+npx @toolx/imagemin your/input/path/filename.ext
+```
+
+This command will process the input image located at `your/input/path/filename.ext` and replace it with the optimized version.
+
+### Specifying Output Path
+
+If you want to save the optimized image to a specific output path without replacing the original, you can use a second parameter to set the desired output directory:
+
+```bash
+npx @toolx/imagemin your/input/path/filename.ext your/output/path/
+```
+
+With this command, the `filename.ext` will be processed and the optimized image will be saved in `your/output/path/` directory.
+
+### Using Options
+
+ToolX ImageMin also supports various options that can be passed to customize the optimization process. For instance, you can set the compression level with the `--compression` option:
+
+```bash
+npx @toolx/imagemin your/input/path/filename.ext --compression 9
+```
+
+In this example, the compression level is set to 9, which enables a higher level of compression.
+
+::: tip
+You can combine the output path specification with options to fully customize the behavior of ToolX ImageMin according to your needs.
+:::
+
+
 ## Options
 
 The `ToolImagemin` accepts an object of `ToolOptions` to configure the optimization process. Below is a description of these options.
