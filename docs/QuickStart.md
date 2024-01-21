@@ -3,13 +3,13 @@ outline: deep
 ---
 # Quick CLI Usage
 
-ToolX can be quickly used via the CLI with the `npx` command. For example:
+ToolX can be quickly used via the CLI with the `npx` command. Combine all files in the current directory:
 
 ```bash
 npx @toolx/combine
 ```
 
-Or, after installing a tool globally, 
+Or, without `npx` after installing a tool globally, 
 
 ```bash
 npm i @toolx/combine -g
@@ -21,7 +21,15 @@ you can directly use it in the CLI:
 toolx-combine
 ```
 
-In both methods, input files are taken from the current directory, and results are saved in the same directory. You can change the input folder, output folder, and options using the `--options`, `-i`, and `-o` parameters. More details can be found [here](https://github.com/toolx-dev/toolx/blob/main/docs/CLI.md).
+In both methods, input files are taken from the current directory, and results are saved in the same directory. You can change the input folder, output folder, and options using the `--options`, `-i`, and `-o` parameters. 
+
+Or you can also specify the input and output paths by providing them as the first two parameters:
+
+```bash
+npx @toolx/combine input/path/ output/path/
+```
+
+More details can be found [here](https://github.com/toolx-dev/toolx/blob/main/docs/CLI.md).
 
 ## CLI Wizard (Work in Progress)
 
