@@ -1,7 +1,7 @@
 import Tool from '@toolx/core/Tool.server.js';
 import { runFile } from '@toolx/core/utils.server.js'
 import fs from 'node:fs';
-import path from 'path';
+import path from 'node:path';
 import optipng from 'optipng-bin';
 import pngquant from 'pngquant-bin';
 import jpegtran from 'jpegtran-bin';

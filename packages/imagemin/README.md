@@ -53,7 +53,7 @@ The `ToolImagemin` accepts an object of `ToolOptions` to configure the optimizat
 
 ::: warning
 Pay attention, the active `lossless` parameter refers to configurations that support `lossless`; if not active, they will be `lossy` instead.
-The `quality` parameter is an abstraction applicable to all compression libraries; however, for greater control, use the original options of each library.
+The `compression` parameter is an abstraction applicable to all compression libraries; however, for greater control, use the original options of each library.
 :::
 
 ## Format-Specific Options
