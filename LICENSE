@@ -19,3 +19,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+--
+
+Extension:
+
+Each package contained within this monorepo may be subject to different licenses.
+It is important to note that this MIT license pertains only to the root files of 
+this repository. Some licenses associated with individual packages may impose 
+restrictions on commercial use, and this limitation specifically applies to the 
+utilization of those individual packages, particularly if the respective license 
+explicitly imposes restrictions on their use within applications for the purpose 
+of optimizing files. Users are advised to review and comply with the specific 
+licenses of each package to ensure adherence to the respective terms and conditions.
