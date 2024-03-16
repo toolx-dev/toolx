@@ -138,7 +138,7 @@ const run = async () => {
     const folder = await Tool.createDir(dir);
     const nameCamelCase = toCamelCase(name, true);
 
-    const packageInfo = await fs.promises.readFile(`${process.cwd()}/${type}/core/package.json`);
+    const packageInfo = await fs.promises.readFile(`${process.cwd()}/tools/core/package.json`);
     const packageRootInfo = await fs.promises.readFile(`${process.cwd()}/package.json`);
     const tsconfig = await fs.promises.readFile(`${process.cwd()}/tsconfig.json`);
     const version = JSON.parse(packageInfo).version;
