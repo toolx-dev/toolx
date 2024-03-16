@@ -11,7 +11,8 @@
         "packages/remove/ToolRemove.js",
         "packages/sharp/ToolSharp.js",
         "packages/svg/ToolSvg.js",
-        "packages/imagemin/ToolImagemin.js"
+        "packages/imagemin/ToolImagemin.js",
+        "packages/chat/ToolChat.js"
     ],
     "exclude": [
         "node_modules"

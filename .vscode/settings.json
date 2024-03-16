@@ -15,5 +15,8 @@
 	"editor.tokenColorCustomizations": {
 		"comments": "",
 		"textMateRules": []
+	},
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
 	}
 }

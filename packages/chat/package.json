@@ -1,0 +1,39 @@
+{
+    "name": "@toolx/chat",
+    "version": "1.0.0",
+    "description": "",
+    "main": "ToolChat.js",
+    "source": "ToolChat.js",
+    "bin": {
+        "toolx-chat": "./ToolChat.cli.js"
+    },
+    "publishConfig": {
+        "access": "public",
+        "main": "ToolChat.js"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "dependencies": {
+        "@toolx/core": "^1.2.1",
+        "openai": "^4.25.0"
+    },
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/williammanco/toolx.git"
+    },
+    "author": "William Manco",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/williammanco/toolx/issues"
+    },
+    "homepage": "https://github.com/williammanco/toolx#readme",
+    "keywords": [
+        "ToolX",
+        "tool",
+        "chat"
+    ]
+}
