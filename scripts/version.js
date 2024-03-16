@@ -33,11 +33,11 @@ async function init() {
     }
 }
 
-async function bumpVersion(packageName, type) {
-    const packageCoreDir = path.join(process.cwd(), 'packages', 'core');
+async function bumpVersion(packageName, type, packageType = 'tools') {
+    const packageCoreDir = path.join(process.cwd(), 'tools', 'core');
     const packageJsonCorePath = path.join(packageCoreDir, 'package.json');
 
-    const packageDir = path.join(process.cwd(), 'packages', packageName);
+    const packageDir = path.join(process.cwd(), packageType, packageName);
     const packageJsonPath = path.join(packageDir, 'package.json');
 
     const prevPackageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf-8'));
@@ -65,8 +65,8 @@ async function bumpVersion(packageName, type) {
     console.log(`Tag created and pushed for ${packageName} v${packageVersion}`);
 }
 
-async function getAllPackageNames() {
-    const packagesDir = path.join(process.cwd(), 'packages');
+async function getAllPackageNamesByPackageType(packageType) {
+    const packagesDir = path.join(process.cwd(), packageType);
     const packageNames = [];
 
     const entries = await fs.promises.readdir(packagesDir);
@@ -81,6 +81,13 @@ async function getAllPackageNames() {
     }
 
     return packageNames;
+}
+
+async function getAllPackageNames() {
+    const tools = await getAllPackageNamesByPackageType('tools');
+    const supertools = await getAllPackageNamesByPackageType('tools');
+
+    return [...tools, ...supertools];
 }
 
 init();

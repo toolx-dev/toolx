@@ -2,7 +2,7 @@ import { createRequire } from 'module'
 import { defineConfig, type DefaultTheme } from 'vitepress'
 
 const require = createRequire(import.meta.url)
-const pkg = require('../packages/core/package.json')
+const pkg = require('../tools/core/package.json')
 const rootPkg = require('../package.json')
 
 const GUIDES: DefaultTheme.NavItemWithLink[] = [
@@ -18,16 +18,16 @@ const GUIDES: DefaultTheme.NavItemWithLink[] = [
   { text: 'Contributing', link: '../CONTRIBUTING' },
 ]
 
-const TOOLS: DefaultTheme.NavItemWithLink[] = rootPkg.workspaces.filter(e => e !== 'packages/cli' && e !== 'packages/core').map((p: string) => {
+const TOOLS: DefaultTheme.NavItemWithLink[] = rootPkg.workspaces.filter(e => e !== 'tools/cli' && e !== 'tools/core').map((p: string) => {
   const pkg = require(`../${p}/package.json`)
   return { text: pkg.name.replace('@toolx/', ''), link: `/${p}/README.md` }
 })
 
 
 const API: DefaultTheme.NavItemWithLink[] = [
-  { text: 'Base.js', link: 'packages/core/Base.md' },
-  { text: 'Pipeline.js', link: 'packages/core/Pipeline.md' },
-  { text: 'Tool.server.js', link: 'packages/core/Tool.server.md' },
+  { text: 'Base.js', link: 'tools/core/Base.md' },
+  { text: 'Pipeline.js', link: 'tools/core/Pipeline.md' },
+  { text: 'Tool.server.js', link: 'tools/core/Tool.server.md' },
 ]
 
 // https://vitepress.dev/reference/site-config

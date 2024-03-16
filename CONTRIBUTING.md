@@ -14,7 +14,7 @@ This command does more than just create a file placeholder. It adds references t
 
 ## Step 2: Write Your Tool
 
-After running the script, a folder is created in the `packages` directory, e.g., `demo` for a tool named "Demo". Begin by editing `ToolDemo.js` inside `/packages/demo/ToolDemo.js`.
+After running the script, a folder is created in the `tools` directory, e.g., `demo` for a tool named "Demo". Begin by editing `ToolDemo.js` inside `/tools/demo/ToolDemo.js`.
 
 Key functions to use are `onEveryFile` and `onBody`. More information can be found in the documentation: [TheTool.md](https://github.com/toolx-dev/toolx/blob/main/docs/TheTool.md).
 

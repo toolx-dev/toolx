@@ -15,7 +15,7 @@ hero:
       link: /docs/QuickStart
     - theme: alt
       text: Tools
-      link: /packages/json/README
+      link: /tools/json/README
 
 features:
   - icon: 🛠️

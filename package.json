@@ -19,14 +19,14 @@
     "docs:preview": "vitepress build && vitepress preview"
   },
   "workspaces": [
-    "packages/cli",
-    "packages/core",
-    "packages/json",
-    "packages/svg",
-    "packages/sharp",
-    "packages/combine",
-    "packages/remove",
-    "packages/imagemin"
+    "tools/cli",
+    "tools/core",
+    "tools/json",
+    "tools/svg",
+    "tools/sharp",
+    "tools/combine",
+    "tools/remove",
+    "tools/imagemin"
   ],
   "devDependencies": {
     "@types/node": "^18.11.9",

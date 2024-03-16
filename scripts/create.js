@@ -131,13 +131,14 @@ tool.run();
 `
 
 const run = async () => {
-    const [name] = args;
+    const [name, type = "tools"] = args;
 
-    const dir = `${process.cwd()}/packages/${toCamelCase(name).toLowerCase()}/`;
+
+    const dir = `${process.cwd()}/${type}/${toCamelCase(name).toLowerCase()}/`;
     const folder = await Tool.createDir(dir);
     const nameCamelCase = toCamelCase(name, true);
 
-    const packageInfo = await fs.promises.readFile(`${process.cwd()}/packages/core/package.json`);
+    const packageInfo = await fs.promises.readFile(`${process.cwd()}/${type}/core/package.json`);
     const packageRootInfo = await fs.promises.readFile(`${process.cwd()}/package.json`);
     const tsconfig = await fs.promises.readFile(`${process.cwd()}/tsconfig.json`);
     const version = JSON.parse(packageInfo).version;
@@ -154,11 +155,11 @@ const run = async () => {
         await fs.promises.writeFile(`${path.join(dir, 'test')}/Tool${nameCamelCase}.test.js`, templateTest(nameCamelCase));
 
         const packageRootInfoEdited = JSON.parse(packageRootInfo);
-        packageRootInfoEdited.workspaces.push(`packages/${name}`)
+        packageRootInfoEdited.workspaces.push(`${type}/${name}`)
         await fs.promises.writeFile(`${process.cwd()}/package.json`, JSON.stringify(packageRootInfoEdited, null, 4));
 
         const tsconfigEdited = JSON.parse(tsconfig);
-        tsconfigEdited.include.push(`packages/${name}/Tool${toCamelCase(name, true)}.js`)
+        tsconfigEdited.include.push(`${type}/${name}/Tool${toCamelCase(name, true)}.js`)
         await fs.promises.writeFile(`${process.cwd()}/tsconfig.json`, JSON.stringify(tsconfigEdited, null, 4));
     }
 };

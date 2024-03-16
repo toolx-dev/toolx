@@ -5,13 +5,13 @@
         "emitDeclarationOnly": true
     },
     "include": [
-        "packages/core/*.js",
-        "packages/combine/ToolCombine.js",
-        "packages/json/ToolJSON.js",
-        "packages/remove/ToolRemove.js",
-        "packages/sharp/ToolSharp.js",
-        "packages/svg/ToolSvg.js",
-        "packages/imagemin/ToolImagemin.js"
+        "tools/core/*.js",
+        "tools/combine/ToolCombine.js",
+        "tools/json/ToolJSON.js",
+        "tools/remove/ToolRemove.js",
+        "tools/sharp/ToolSharp.js",
+        "tools/svg/ToolSvg.js",
+        "tools/imagemin/ToolImagemin.js"
     ],
     "exclude": [
         "node_modules"
