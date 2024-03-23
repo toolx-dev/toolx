@@ -18,11 +18,15 @@ const GUIDES: DefaultTheme.NavItemWithLink[] = [
   { text: 'Contributing', link: '../CONTRIBUTING' },
 ]
 
-const TOOLS: DefaultTheme.NavItemWithLink[] = rootPkg.workspaces.filter(e => e !== 'tools/cli' && e !== 'tools/core').map((p: string) => {
+const TOOLS: DefaultTheme.NavItemWithLink[] = rootPkg.workspaces.filter(e => e !== 'tools/cli' && e !== 'tools/core' && !e.startsWith('supertools/')).map((p: string) => {
   const pkg = require(`../${p}/package.json`)
   return { text: pkg.name.replace('@toolx/', ''), link: `/${p}/README.md` }
 })
 
+const STOOLS: DefaultTheme.NavItemWithLink[] = rootPkg.workspaces.filter(e => e.startsWith('supertools/')).map((p: string) => {
+  const pkg = require(`../${p}/package.json`)
+  return { text: pkg.name.replace('@toolx/supertool-', ''), link: `/${p}/README.md` }
+})
 
 const API: DefaultTheme.NavItemWithLink[] = [
   { text: 'Base.js', link: 'tools/core/Base.md' },
@@ -94,6 +98,14 @@ export default defineConfig({
         ],
       },
       {
+        text: 'SuperTools',
+        items: [
+          {
+            items: STOOLS,
+          },
+        ],
+      },
+      {
         text: 'Guide',
         items: [
           {
@@ -136,6 +148,10 @@ export default defineConfig({
           {
             text: 'Tools',
             items: TOOLS,
+          },
+          {
+            text: 'SuperTools',
+            items: STOOLS,
           },
           {
             text: 'API',

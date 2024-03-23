@@ -1,21 +1,21 @@
 # SuperToolFFMPEG Documentation
 
-`SuperToolFFMPEG` is a utility class designed to facilitate interaction with FFMPEG processes within Node.js applications. It extends a provided superclass, enhancing it with methods for managing FFMPEG processes and tracking progress.
+`SuperToolFFMPEG` is a utility class designed to facilitate interaction with FFMPEG processes within Node.js applications. It serves as both the superclass and the utility class, enhancing itself with methods for managing FFMPEG processes and tracking progress.
 
-The superclass, often referred to as the base class or parent class, serves as the foundation upon which `SuperToolFFMPEG` builds its functionality. By extending a superclass, `SuperToolFFMPEG` inherits all the properties and methods of the superclass while adding its own unique capabilities related to FFMPEG processing.
+:::info
+As a superclass, `SuperToolFFMPEG` provides a foundation for creating custom tool classes tailored to specific use cases. It encapsulates common functionality and logic related to FFMPEG processing, enabling developers to build upon this foundation to address their application's unique requirements.
 
-::: info
-The choice of superclass is flexible and depends on the specific requirements of your application. It could be any existing class or module that provides functionalities relevant to your FFMPEG processing needs. For instance, you might choose a generic tool class that provides file manipulation functions or a more specialized class tailored to your application domain.
-
-By extending the superclass, `SuperToolFFMPEG` seamlessly integrates with your existing codebase, allowing you to leverage its enhanced FFMPEG capabilities while maintaining consistency with your application's overall architecture.
+The superclass pattern promotes code reuse and maintainability by abstracting away common functionality into a reusable component. By extending `SuperToolFFMPEG`, developers can create specialized subclasses that inherit its core features while adding customizations or extensions as needed.
 :::
 
 ## Usage
 
-To utilize the functionality provided by SuperToolFFMPEG, you should extend it from a superclass. Here's an example of how to extend it and use it within your application:
+To utilize the functionality provided by `SuperToolFFMPEG`, you can extend it directly to create your custom tool classes. In this case where you require properties from both the superclass (`SuperToolFFMPEG`) and the original `Tool` class, you need to add the `Tool` class as the first parameter of the superclass.
+
 
 ```javascript
 import SuperToolFFMPEG from '@toolx/supertool-ffmpeg';
+import { Tool } from '@toolx/core';
 
 // Define a class ToolName extending SuperToolFFMPEG
 class ToolName extends SuperToolFFMPEG(Tool) {
