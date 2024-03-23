@@ -11,7 +11,8 @@
         "tools/remove/ToolRemove.js",
         "tools/sharp/ToolSharp.js",
         "tools/svg/ToolSvg.js",
-        "tools/imagemin/ToolImagemin.js"
+        "tools/imagemin/ToolImagemin.js",
+        "supertools/ffmpeg/SuperToolFFMPEG.js"
     ],
     "exclude": [
         "node_modules"

@@ -1,0 +1,29 @@
+{
+    "name": "@toolx/supertool-ffmpeg",
+    "version": "0.0.1",
+    "description": "",
+    "main": "SuperToolFFMPEG.js",
+    "source": "SuperToolFFMPEG.js",
+    "publishConfig": {
+        "access": "public",
+        "main": "SuperToolFFMPEG.js"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "dependencies": {
+        "@ffmpeg-installer/ffmpeg": "^1.1.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/williammanco/toolx.git"
+    },
+    "author": "William Manco",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/williammanco/toolx/issues"
+    },
+    "homepage": "https://github.com/williammanco/toolx#readme"
+}

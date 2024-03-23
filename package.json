@@ -26,7 +26,8 @@
     "tools/sharp",
     "tools/combine",
     "tools/remove",
-    "tools/imagemin"
+    "tools/imagemin",
+    "supertools/ffmpeg"
   ],
   "devDependencies": {
     "@types/node": "^18.11.9",
