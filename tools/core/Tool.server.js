@@ -97,6 +97,17 @@ class Tool extends Base {
     }
 
     /**
+     * readDir
+     * @param {string | string[]} pathDir
+     * @param {glob.Options} [options]
+     * @returns {Promise<string[] | any[]>}
+     */
+    static readDir(pathDir, options = {}) {
+        return glob(Array.isArray(pathDir) ? pathDir : [pathDir], options);
+    }
+
+
+    /**
      * Runs the tool's main logic.
      * @param {object} options - Options for the tool.
      * @param {string | string[]} pathIn - Input path(s).
@@ -179,24 +190,11 @@ class Tool extends Base {
              * @param {any} [prev]
              */
             const fileRun = (file, index, prev) => {
-                if (!this.filterFile(file, includes, excludes, basename)) {
+                if (!this.filterFile(file, includes, excludes, basename, options?.options?.basePathIn)) {
                     return Promise.resolve();
                 }
 
-                return new Promise(async (resolveFile) => {
-
-                    if (this.options?.preprocess && typeof this.options.preprocess === 'function') {
-                        await this.options.preprocess({
-                            pathIn,
-                            pathOut,
-                            files,
-                            file,
-                            options,
-                            prev,
-                            index,
-                        });
-                    }
-
+                return new Promise((resolveFile) => {
                     this.onEveryFile(resolveFile, {
                         pathIn,
                         pathOut,
@@ -216,19 +214,9 @@ class Tool extends Base {
                     prevFile.then((value) => {
                         if ((this.options?.exts && Tool.checkFileExt(nextFile, this.options.exts)) || !this.options?.exts) {
                             // Execute the fileRun function for the current file
-                            const outputFile = fileRun(nextFile, index, value).then(async (file) => {
+                            const outputFile = fileRun(nextFile, index, value).then((file) => {
                                 this.eventHandler.emit(Tool.EVENTS.PROCESS, { file })
-                                if (this.options?.postprocess && typeof this.options.postprocess === 'function') {
-                                    await this.options.postprocess({
-                                        pathIn,
-                                        pathOut,
-                                        files,
-                                        file,
-                                        options,
-                                        index,
-                                        filesOutput,
-                                    });
-                                }
+
                                 // Push the resolved file value to the filesOutput array
                                 filesOutput.push(file);
                             });
@@ -294,7 +282,8 @@ class Tool extends Base {
     * @param {string} [basename] - Basename to match.
     * @returns {boolean} - Returns true if the file matches the criteria, otherwise false.
     */
-    filterFile(file, includes, excludes, basename) {
+    filterFile(_file, includes, excludes, basename, basePathIn) {
+        const file = path.join(basePathIn || '', path.basename(_file));
         // Check if file matches inclusion criteria or no inclusion criteria is provided
         if ((includes && this.includes(includes, file)) || !includes) {
             // Check if file matches exclusion criteria or no exclusion criteria is provided
@@ -344,11 +333,10 @@ class Tool extends Base {
                     pathFileOut = pathFileOut.replace(path.join(this._tempDir, this._tempDirTool), pathOut);
                 }
 
-                if (this.options?.suffix) {
-                    pathFileOut = pathFileOut.replace(path.extname(pathFileOut), `${this.options.suffix}${path.extname(pathFileOut)}`)
+                if (onCopy) {
+                    if (this.options?.suffix) pathFileOut = pathFileOut.replace(path.extname(pathFileOut), `${this.options.suffix}${path.extname(pathFileOut)}`)
+                    onCopy(pathFileOut);
                 }
-
-                if (onCopy) onCopy(pathFileOut)
                 return fs.promises.cp(pathFile, pathFileOut, { recursive: false }).then(() => pathFileOut);
             }))
 
