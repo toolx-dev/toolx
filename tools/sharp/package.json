@@ -16,7 +16,7 @@
     "sideEffects": false,
     "dependencies": {
         "@toolx/core": "^1.4.0",
-        "sharp": "^0.32.0"
+        "sharp": "0.33.3"
     },
     "scripts": {
         "test": "vitest run",
