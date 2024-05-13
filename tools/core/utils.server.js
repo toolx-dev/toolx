@@ -1,5 +1,4 @@
 import { spawn, exec, execFile } from 'node:child_process';
-import mustargs from 'mustargs';
 
 /**
  * checkPythonPackages
@@ -28,10 +27,10 @@ const checkPythonPackages = (packages) => {
  * @param {string[]} args 
  * @returns {Promise<void>}
  */
-const runCLI = (command, script, args) => {
+const runCLI = (command, script, args, options) => {
     return new Promise((resolve, reject) => {
-        // Spawn the Python process
-        const process = spawn(command, [script, ...args]);
+        // Spawn the process
+        const process = spawn(command, [script, ...(args || [])], options || {});
 
         // Collect data from stdout
         let stdoutData = '';
@@ -52,6 +51,8 @@ const runCLI = (command, script, args) => {
             } else {
                 reject(new Error(`Process exited with code ${code}: ${stderrData}`));
             }
+            process.stdin.pause();
+            process.kill();
         });
 
         // Handle process error (e.g., command not found)
@@ -77,18 +78,13 @@ const runPython = (script, args) => runCLI('python3', script, args);
  */
 const runNode = (script, args) => runCLI('node', script, args);
 
-const getArgsFromCLI = () => {
-    const values = process.argv.slice(2);
-    const args = mustargs(values);
+const getArgsFromCLI = async () => {
+    const mustargs = import('mustargs');
+    const args = mustargs(process.argv.slice(2));
 
-    let pathIn = args.pathIn || args.i || process.cwd() + '/**/*';
-    let pathOut = args.pathOut || args.o || process.cwd();
+    const pathIn = args.pathIn || args.i || process.cwd() + '/**/*';
 
-    if (Object.keys(args).length === 0 && values.length > 0) {
-        if (values[0]) pathIn = values[0];
-        if (values[1]) pathOut = values[1];
-    }
-
+    const pathOut = args.pathOut || args.o || process.cwd();
     const options = args.options || args.opts || args.s || {};
 
     return { ...args, options, pathIn, pathOut }
@@ -100,16 +96,38 @@ const getArgsFromCLI = () => {
  * @param {string[]} commands 
  * @returns {Promise<void>}
  */
-const runFile = (file, commands) => {
-    return new Promise((resolve) => {
-        execFile(file, commands, (error, stdout, stderr) => {
-            if (error) {
-                console.log(error) // TODO: need to expose a debug constant to show errors 
-                resolve(false);
-            } else {
-                resolve(true);
-            }
+const runFile = (file, commands, debug) => {
+    return new Promise((resolve, reject) => {
+        const childProcess = spawn(file, commands);
+
+        // Event listeners to handle process events
+        childProcess.on('error', (error) => {
+            if (debug) console.error(`Error executing ${file}:`, error);
+            resolve(false);
+            killProcess();
         });
+
+        childProcess.on('close', (code, signal) => {
+            if (debug) console.log(`Child process exited with code ${code} and signal ${signal}`);
+            resolve(code === 0); // Resolve with true if exit code is 0 (success), otherwise false
+            killProcess();
+        });
+
+        childProcess.on('exit', (code, signal) => {
+            if (debug) console.log(`Child process exited with code ${code} and signal ${signal}`);
+            resolve(code === 0); // Resolve with true if exit code is 0 (success), otherwise false
+            killProcess();
+        });
+
+        // Function to kill the child process if needed
+        const killProcess = () => {
+            if (childProcess && !childProcess.killed) {
+                childProcess.kill();
+            }
+        };
+
+        // Return function to kill the process externally if needed
+        resolve.killProcess = killProcess;
     });
 }
 
